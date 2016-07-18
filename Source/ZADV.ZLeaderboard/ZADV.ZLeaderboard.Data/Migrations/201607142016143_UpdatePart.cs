@@ -1,0 +1,18 @@
+namespace ZADV.ZLeaderboard.Data.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class UpdatePart : DbMigration
+    {
+        public override void Up()
+        {
+            DropColumn("dbo.Participant", "VoteCount");
+        }
+        
+        public override void Down()
+        {
+            AddColumn("dbo.Participant", "VoteCount", c => c.Int(nullable: false));
+        }
+    }
+}

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zadv.ZLeaderboard.Domain;
+using ZADV.ZLeaderboard.Domain;
 
 namespace ZADV.ZLeaderboard.Data
 {
@@ -19,6 +20,8 @@ namespace ZADV.ZLeaderboard.Data
         public DbSet<Event> Events { get; set; }
 
         public DbSet<Participant> Participants { get; set; }
+
+        public DbSet<Voter> Voters { get; set; }
 
         DbSet<T> IDataContext.Set<T>()
         {

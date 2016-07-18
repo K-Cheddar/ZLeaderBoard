@@ -1,0 +1,70 @@
+﻿<div class="container" style="width:35%">
+    <h1>Edit Event</h1>{{event}}
+    <button ng-disabled="eventForm.$invalid" type="button" class="btn btn-primary" style="float: right">Save</button>
+    <br />
+    <!--<input type="text" class="form-control" name="participantName" id="participantName" placeholder="zParticipant Name" ng-model="model.participantName" required />-->
+    <!--<small ng-if="participantForm.participantName.$invalid" style="color:red">Name is required</small>-->
+    <form name="eventForm">
+        <div class="form-group">
+            <label for="eventName">Event Name *</label>
+            <input type="text" class="form-control" name="eventName" id="eventName" placeholder="zEvent Name" ng-model="model.event.Name" required/>
+            <small ng-if="eventForm.eventName.$invalid" style="color:red">Name is required</small>
+        </div>
+        <div class="form-group">
+            <label for="startAt">Start *</label>
+            <input type="datetime-local" class="form-control" name="startAt" id="startAt" ng-model="model.event.StartAt" required/>
+            <small ng-if="eventForm.startAt.$invalid" style="color:red">Start Date and Time are required</small>
+        </div>
+        <div class="form-group">
+            <label for="endAt">End *</label>
+            <input type="datetime-local" class="form-control" name="endAt" id="endAt" ng-model="model.event.EndAt" required/>
+            <small ng-if="eventForm.endAt.$invalid" style="color:red">End Date and Time are required</small>
+        </div>
+        <div class="checkbox">
+            <label>
+                Is Active <input type="checkbox" />
+                <script>
+                    function eventIsActive() {
+                        if (model.event.isActive) {
+                            $("input: checkbox").prop('checked', true);
+                        }
+                        else {
+                            $("input: checkbox").prop('checked', false);
+                        }
+                    }
+                </script>
+            </label>
+        </div>
+    </form>
+    <br />
+    <h3>Add Participant</h3>
+
+
+    <form name="participantForm" ng-submit="addParticipant()">
+        <div class="form-group">
+            <label for="participantName">Participant Name *</label>
+            <input type="text" class="form-control" name="participantName" id="participantName" placeholder="zParticipant Name" ng-model="model.participantName" required/>
+            <small ng-if="participantForm.participantName.$invalid" style="color:red">Name is required</small>
+        </div>
+        <div class="form-group">
+            <label for="imageFile">Image</label>
+            <input type="file" id="imageFile" ng-model="model.participantImage">
+            <p class="help-block">Upload a participant image here</p>
+        </div>
+        <button ng-disabled="participantForm.$invalid" type="submit" class="btn btn-primary btn-smx">Add</button>
+    </form>
+
+
+    <br /><br />
+    <h4>Participants</h4>
+    <table class="table table-hover" style="width:100%">
+        <tr ng-repeat="participant in model.participants">
+            <td height="50"><img id="pImage" src="#"/></td>
+            <td>{{participant.name}}</td>
+            <td><a href="" ng-click="removeParticipant($index)" style="color:black"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a></td>
+        </tr>
+    </table>
+    <a href="#main" class="btn btn-danger" style="float: left">Cancel</a>
+    <button ng-disabled="eventForm.$invalid" type="button" class="btn btn-primary" style="float: right" ng-click="save(eventForm)">Save</button>
+
+</div>

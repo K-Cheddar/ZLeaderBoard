@@ -73,9 +73,18 @@
     <Compile Include="Migrations\201607081923356_InitialTables.Designer.cs">
       <DependentUpon>201607081923356_InitialTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607141601289_AddTable.cs" />
+    <Compile Include="Migrations\201607141601289_AddTable.Designer.cs">
+      <DependentUpon>201607141601289_AddTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607142016143_UpdatePart.cs" />
+    <Compile Include="Migrations\201607142016143_UpdatePart.Designer.cs">
+      <DependentUpon>201607142016143_UpdatePart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParticipantRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VoterRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -84,6 +93,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201607081923356_InitialTables.resx">
       <DependentUpon>201607081923356_InitialTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607141601289_AddTable.resx">
+      <DependentUpon>201607141601289_AddTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607142016143_UpdatePart.resx">
+      <DependentUpon>201607142016143_UpdatePart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

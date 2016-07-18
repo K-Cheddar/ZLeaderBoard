@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Zadv.ZLeaderboard.Domain.IRepositories;
 using ZADV.ZLeaderboard.Data;
+using ZADV.ZLeaderboard.Domain.IRepositories;
 
 namespace ZADV.ZLeaderboard.Web.IoC
 {
@@ -34,7 +35,8 @@ namespace ZADV.ZLeaderboard.Web.IoC
         {
             container.RegisterType<IDataContext, DataContext>(new PerRequestLifetimeManager(), new InjectionConstructor());
             container.RegisterType<IEventRepository, EventRepository>();
-            container.RegisterType<IParticipantRepository, ParticipantRepository>();        
+            container.RegisterType<IParticipantRepository, ParticipantRepository>();
+            container.RegisterType<IVoterRepository, VoterRepository>();
         }
     }
 }

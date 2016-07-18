@@ -4,17 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zadv.ZLeaderboard.Domain;
 
-namespace Zadv.ZLeaderboard.Domain
+namespace ZADV.ZLeaderboard.Domain
 {
-    public class Participant : DbEntity
+    public class Voter : DbEntity
     {
         [Required]
         [StringLength(500)]
-        public string Name { get; set; }
+        public string Email { get; set; }
 
-        public Guid ImageId { get; set; }
-
-        public virtual Event Event { get; set; }
-    }
+        public virtual Participant Participant { get; set; }
+}
 }
