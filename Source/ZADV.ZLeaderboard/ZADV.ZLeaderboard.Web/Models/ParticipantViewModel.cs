@@ -14,6 +14,8 @@ namespace ZADV.ZLeaderboard.Web.Models
 
         public int Id { get; set; }
 
+        public int? VoteCount { get; set; }
+
         public HttpPostedFileBase ImageFile { get; set; }
 
 

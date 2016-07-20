@@ -1,0 +1,16 @@
+﻿<div class="container">
+    <h2>{{model.event.Name}}</h2>
+    <br />
+    <h3 ng-if="model.voteAllowed">Vote!</h3>
+    <h3 ng-if="!model.voteAllowed">Leaderboard</h3>
+    <p ng-if="model.event.Participants.length == 0"> No participants</p>
+    <table class="table table-hover" style="width:30%">
+        <tr ng-repeat="participant in model.event.Participants">
+            <td height="40" width="50"><img id="pImage" style="max-width:70px; max-height: 100px" src="http://i.imgur.com/sO7NCXh.jpg" /></td>
+            <td>{{participant.Name}}</td>
+            <td>{{participant.VoteCount}}</td>
+            <td ng-if="model.voteAllowed"><a href="" ng-click=""> <i style="color:black" class="fa fa-plus-square fa-lg" aria-hidden="true"></i></a></td>
+        </tr>
+    </table>
+    <a href="#userHome" class="btn btn-danger" style="float: left">Cancel</a>
+</div>

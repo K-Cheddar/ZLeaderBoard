@@ -16,6 +16,9 @@ angular.module('adminApp').factory('eventService', ['$http', 'myConfig', functio
         },
         post: function (event) {
             return $http.post(serviceBase + 'api/event', event);
+        },
+        put: function (id, event) {
+            return $http.put(serviceBase + 'api/event?id=' + id, event);
         }
 
     }

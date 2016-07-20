@@ -182,7 +182,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -230,11 +230,18 @@
     <Compile Include="Models\EmailInputViewModel.cs" />
     <Compile Include="Models\EventViewModel.cs" />
     <Compile Include="Models\ParticipantViewModel.cs" />
+    <Compile Include="Models\UserEventViewModel.cs" />
     <Compile Include="Models\UserEventsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\userEmail.html" />
+    <Content Include="App\userEvent.html" />
+    <Content Include="App\userEventController.js" />
+    <Content Include="App\userHome.html" />
+    <Content Include="App\userHomeController.js" />
+    <Content Include="App\userEventService.js" />
     <Content Include="App\eventService.js" />
     <Content Include="App\event.html" />
     <Content Include="App\main.html" />
@@ -284,6 +291,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\ng-flow-standalone.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />

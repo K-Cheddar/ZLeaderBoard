@@ -1,0 +1,42 @@
+﻿<div class="container">
+    <div class="container">
+        <h2>Active Events</h2>
+        <br />
+        <div ng-repeat="event in model.events.ActiveEvents">
+            <div class="card">
+                <div class="card-block col-xs-6 col-md-4 col-lg-3" style="border:groove">
+                    <h4 class="card-title">{{event.Name}}</h4>
+                    <p class="card-text">Start: {{event.StartAt | date:'M/d/yy'}} {{event.StartAt | date:'h:mm a'}}</p>
+                    <p class="card-text">End: {{event.EndAt | date:'M/d/yy'}} {{event.EndAt | date:'h:mm a'}}</p>
+                    <a ui-sref="userEventVote({eventId: event.Id})" class="btn btn-primary">Vote</a><a ui-sref="userEventView({eventId: event.Id})" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="container">
+        <h2>Upcoming Events</h2>
+        <div ng-repeat="event in model.events.UpcomingEvents">
+            <div class="card">
+                <div class="card-block col-xs-6 col-md-4 col-lg-3" style="border:groove">
+                    <h4 class="card-title">{{event.Name}}</h4>
+                    <p class="card-text">Start: {{event.StartAt | date:'M/d/yy'}} {{event.StartAt | date:'h:mm a'}}</p>
+                    <p class="card-text">End: {{event.EndAt | date:'M/d/yy'}} {{event.EndAt | date:'h:mm a'}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="container">
+        <h2>Past Events</h2>
+        <div ng-repeat="event in model.events.PastEvents">
+            <div class="card">
+                <div class="card-block col-xs-6 col-md-4 col-lg-3" style="border:groove; opacity:0.5">
+                    <h4 class="card-title">{{event.Name}}</h4>
+                    <p class="card-text">Start: {{event.StartAt | date:'M/d/yy'}} {{event.StartAt | date:'h:mm a'}}</p>
+                    <p class="card-text">End: {{event.EndAt | date:'M/d/yy'}} {{event.EndAt | date:'h:mm a'}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

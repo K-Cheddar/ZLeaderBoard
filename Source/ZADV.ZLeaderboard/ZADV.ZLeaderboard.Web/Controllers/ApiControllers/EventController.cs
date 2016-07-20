@@ -11,9 +11,16 @@ using System.Web;
 using System.Net.Http.Formatting;
 using ZADV.ZLeaderboard.Web.Models;
 using System.Configuration;
+using System.Web.Hosting;
+using System.IO;
+using System.Diagnostics;
+using System.Globalization;
+using System.Threading.Tasks;
+using System.Net.Http.Headers;
 
 namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 {
+
     public class EventController : ApiController
     {
         private IEventRepository _eventRepository;
@@ -29,7 +36,13 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
         [HttpGet]
         public IEnumerable<Event> Get()
         {
-            return _eventRepository.GetAll().OrderBy(e => e.IsActive).ThenBy(d => d.StartAt).ToList();
+            IList<Event> currentEvents = _eventRepository.GetAll().Where(x => x.EndAt >= DateTime.Now).OrderByDescending(e => e.IsActive).ThenBy(d => d.StartAt).ToList();
+            IList<Event> pastEvents = _eventRepository.GetAll().Where(x => x.EndAt < DateTime.Now).OrderByDescending(e => e.IsActive).ThenBy(d => d.StartAt).ToList();
+            foreach (var e in pastEvents)
+            {
+                currentEvents.Add(e);
+            }
+            return currentEvents;
         }
 
         [HttpGet]
@@ -54,6 +67,10 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                     Name = particiant.Name,
                     Id = particiant.Id
                 };
+                if(model.Participants == null)
+                {
+                    model.Participants = new List<ParticipantViewModel>();
+                }
                 model.Participants.Add(currentparticipant);
             }
             return model;
@@ -61,7 +78,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 
         [HttpPost]
         //[ActionName("Create")]
-        public void Post(EventViewModel model)
+        public void Post([FromBody]EventViewModel model)
         {
             if (ModelState.IsValid && model != null)
             {
@@ -69,21 +86,11 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                 {
                     Name = model.Name,
                     StartAt = model.StartAt,
-                    EndAt = model.EndAt
+                    EndAt = model.EndAt,
+                    IsActive = model.IsActive
                 };
                 _eventRepository.Add(newEvent);
                 AddParticipant(model, newEvent);
-                foreach (var participant in model.Participants)
-                {
-                    var newparticipant = new Participant()
-                    {
-                        Event = newEvent,
-                        Name = participant.Name,
-                    };
-
-                    newparticipant.ImageId = SaveImage(participant.ImageFile);
-                    _participantRepository.Add(newparticipant);
-                }
             }
         }
 
@@ -117,14 +124,16 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
 
-        public void Put(int id, EventViewModel model)
+        [HttpPut]
+        public void Put(int id, [FromBody] EventViewModel model)
         {
 
             Event editEvent = _eventRepository.Get(id);
+            editEvent.Name = model.Name;
             editEvent.StartAt = model.StartAt;
             editEvent.EndAt = model.EndAt;
             editEvent.IsActive = model.IsActive;
@@ -167,7 +176,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                     Name = participant.Name,
                 };
 
-                newparticipant.ImageId = SaveImage(participant.ImageFile);
+                //newparticipant.ImageId = SaveImage(participant.ImageFile);
                 _participantRepository.Add(newparticipant);
             }
 
@@ -176,18 +185,21 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
         private IList<Participant> EventParticipants(Event currentEvent)
         {
             IList<Participant> participants = _participantRepository.GetAll();
+            IList<Participant> eventParticipants = new List<Participant>();
             foreach (var participant in participants)
             {
-                if (participant.Event.Id != currentEvent.Id)
+                if (participant.Event.Id == currentEvent.Id)
                 {
-                    participants.Remove(participant);
+                    eventParticipants.Add(participant);
                 }
             }
-            return participants;
+            return eventParticipants;
         }
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
         }
+
+
     }
 }

@@ -22,6 +22,11 @@ namespace ZADV.ZLeaderboard.Web.Models
         public bool IsActive { get; set; }     
 
         public List<ParticipantViewModel> Participants { get; set; }
+
+        public EventViewModel()
+        {
+            Participants = new List<ParticipantViewModel>();
+        }
     }
 
 }

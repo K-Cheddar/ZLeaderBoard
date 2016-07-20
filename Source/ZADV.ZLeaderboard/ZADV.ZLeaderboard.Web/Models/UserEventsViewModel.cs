@@ -11,5 +11,12 @@ namespace ZADV.ZLeaderboard.Web.Models
         public List<Event> ActiveEvents { get; set; }
         public List<Event> UpcomingEvents { get; set; }
         public List<Event> PastEvents { get; set; }
+
+        public UserEventsViewModel()
+        {
+            ActiveEvents = new List<Event>();
+            UpcomingEvents = new List<Event>();
+            PastEvents = new List<Event>();
+        }
     }
 }

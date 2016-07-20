@@ -18,6 +18,27 @@
           templateUrl: "/App/event.html",
           controller: "eventController"
       })
+    .state('userHome', {
+        url: "/userHome",
+        templateUrl: "/App/userHome.html",
+        controller: "userHomeController"
+    })
+    .state('userEventView', {
+        url: "/userEventView/:eventId",
+        templateUrl: "/App/userEvent.html",
+        controller: "userEventController",
+        data: {
+            showButton: false
+        }
+    })
+    .state('userEventVote', {
+        url: "/userEventVote/:eventId",
+        templateUrl: "/App/userEvent.html",
+        controller: "userEventController",
+        data: {
+            showButton: true
+        }
+    })
 })
     .constant("myConfig", {
         'apiUrl': 'http://localhost:60919/'

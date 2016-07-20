@@ -12,12 +12,17 @@
     <script src="~/App/mainController.js"></script>
     <script src="~/App/eventController.js"></script>
     <script src="~/App/eventService.js"></script>
+    <script src="~/App/userHomeController.js"></script>
+    <script src="~/App/userEventService.js"></script>
+    <script src="~/App/userEventController.js"></script>
 </head>
 <body>
 
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/flow")
+    @Scripts.Render("~/bundles/moment")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

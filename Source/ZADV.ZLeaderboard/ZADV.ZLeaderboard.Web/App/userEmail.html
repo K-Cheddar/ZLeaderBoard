@@ -1,0 +1,8 @@
+﻿<form name="emailForm">
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" name="email" id="email" placeholder="Name" required />
+        <!--<small ng-if="emailForm.email.$invalid" style="color:red">Email is required</small>-->
+        <button ng-disabled="email.$invalid" type="button" class="btn btn-primary" style="float: right">Next</button>
+    </div>
+</form>
