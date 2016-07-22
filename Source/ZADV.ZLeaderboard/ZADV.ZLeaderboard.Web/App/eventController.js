@@ -1,12 +1,13 @@
 ﻿angular.module('adminApp')
-  .controller('eventController', function ($scope, eventService, $stateParams, $location) {
+  .controller('eventController', function ($scope, eventService, $stateParams, $location, $state) {
 
       $scope.model = {
           eventId: $stateParams.eventId,
           event: {
           },
           participants: [],
-          participantName: undefined
+          participantName: undefined,
+          createEvent: $state.current.data.createEvent
           //participantImage: undefined
       };
 

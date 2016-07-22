@@ -11,7 +11,7 @@
 </ul>-->
 <div class="container">
     <h1>Events</h1>
-    <a ui-sref="event" class="btn btn-primary"> Create Event</a>
+    <a ui-sref="eventCreate" class="btn btn-primary"> Create Event</a>
     <br />
     <table class="table table-hover">
         <tr class="active">
@@ -26,7 +26,7 @@
             <td>{{event.StartAt | date:'MMM d, y'}}<br />{{event.StartAt | date:'h:mm a'}}</td>
             <td>{{event.EndAt | date:'MMM d, y'}}<br />{{event.EndAt | date:'h:mm a'}}</td>
             <td>{{event.IsActive == true ? "Active" : "Not Active"}}</td>
-            <td><a ui-sref="event({eventId: event.Id})" style="color:black"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td>
+            <td><a ui-sref="eventEdit({eventId: event.Id})" style="color:black"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td>
         </tr>
     </table>
 </div>

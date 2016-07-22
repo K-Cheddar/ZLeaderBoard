@@ -1,4 +1,16 @@
-﻿<div class="container">
+﻿<div class="container" ng-if="model.voteAllowed && !model.email && model.event.Participants.length != 0">
+    <br />
+    <h4>Enter your email to vote</h4>
+    <form name="emailForm" ng-submit="saveEmail()">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Name" required ng-model="model.emailTmp" /><br />
+            <button ng-disabled="emailForm.$invalid" type="submit" class="btn btn-primary" style="float: left">Next</button>
+        </div>
+    </form>
+</div>
+
+<div class="container">
     <h2>{{model.event.Name}}</h2>
     <br />
     <h3 ng-if="model.voteAllowed">Vote!</h3>
@@ -9,8 +21,13 @@
             <td height="40" width="50"><img id="pImage" style="max-width:70px; max-height: 100px" src="http://i.imgur.com/sO7NCXh.jpg" /></td>
             <td>{{participant.Name}}</td>
             <td>{{participant.VoteCount}}</td>
-            <td ng-if="model.voteAllowed"><a href="" ng-click=""> <i style="color:black" class="fa fa-plus-square fa-lg" aria-hidden="true"></i></a></td>
+            <td ng-if="model.voteAllowed">
+                <a href="" class="btn" ng-disabled="!model.email" ng-click="vote(participant)">
+                    <i style="color:black" class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
+                </a>
+                <!--<p ng-if="model.alreadyVoted" style="font-size:10px; color:crimson">You've already voted!</p></td>-->
         </tr>
     </table>
+    <div ng-if="model.alreadyVoted" class="alert alert-danger alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> You've already voted for that participant! </div>
     <a href="#userHome" class="btn btn-danger" style="float: left">Cancel</a>
-</div>
+</div>  

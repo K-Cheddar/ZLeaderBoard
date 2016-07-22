@@ -1,5 +1,6 @@
 ﻿<div class="container">
-    <h1>Event</h1>
+    <h2 ng-if="model.createEvent">Create Event</h2>
+    <h2 ng-if="!model.createEvent">Edit Event</h2>
     <button ng-disabled="eventForm.$invalid" type="button" class="btn btn-primary" style="float: right" ng-click="save()">Save</button>
     <br />
     <form name="eventForm">

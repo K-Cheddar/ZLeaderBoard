@@ -29,7 +29,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
         [HttpGet]
         public UserEventsViewModel Get()
         {
-            IList<Event> allEvents = _eventRepository.GetAll();
+            IList<Event> allEvents = _eventRepository.GetAll().Where(e => e.IsActive).ToList();
             UserEventsViewModel model = new UserEventsViewModel();
             foreach (var singleEvent in allEvents)
             {
@@ -53,7 +53,6 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
         public UserEventViewModel Get(int id)
         {
             IList<Participant> participants = EventParticipants(_eventRepository.Get(id)).OrderBy(p => p.Name).ToList();
-            IList<Voter> voters;
             int voteCount = 0;
 
             UserEventViewModel model = new UserEventViewModel()
@@ -66,7 +65,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             {
                 //vote count gets the number of participants from the list equal to this one
                 voteCount = _voterRepository.GetAll().Where(p => p.Participant.Id == participant.Id).Count();
-                    ParticipantViewModel part = new ParticipantViewModel()
+                ParticipantViewModel part = new ParticipantViewModel()
                 {
                     Name = participant.Name,
                     Id = participant.Id,
@@ -92,9 +91,10 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
         //    return participant;
         //}
 
-        public void Put(int id)
+        public VotesViewModel Put(int id)
         {
             Participant participant = _participantRepository.Get(id);
+            VotesViewModel vvm = new VotesViewModel();
             IEnumerable<Voter> voters = _voterRepository.GetAll().Where(p => p.Participant.Event.Id == participant.Event.Id);
             //foreach (var voter in voters)
             //{
@@ -115,14 +115,15 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                     value = cookie.First().Value;
                 }
             }
+
             foreach (var voter in voters)
             {
                 //check if Voter voted for a different participant from same event
-                if (voter.Email == value && voter.Participant.Event.Id == participant.Event.Id && voter.Participant.Id != participant.Id)
-                {
-                    _voterRepository.Remove(voter);
+                //if (voter.Email == value && voter.Participant.Event.Id == participant.Event.Id && voter.Participant.Id != participant.Id)
+                //{
+                //    _voterRepository.Remove(voter);
 
-                }
+                //}
                 //check if voter already voted for participant
                 if (voter.Email == value && voter.Participant.Id == participant.Id)
                 {
@@ -141,6 +142,9 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 
 
             _participantRepository.Update(participant);
+            vvm.VoteCount = _voterRepository.GetAll().Where(p => p.Participant.Id == participant.Id).Count();
+            vvm.Voted = !voteAllowed;
+            return vvm;
         }
 
         public HttpResponseMessage emailCookie(EmailInputViewModel model)

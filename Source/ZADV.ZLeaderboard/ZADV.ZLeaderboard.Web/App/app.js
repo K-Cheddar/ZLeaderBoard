@@ -1,5 +1,5 @@
 ﻿angular.module('adminApp', [
-    'ui.router'
+    'ui.router', 'ngCookies', 'ngRoute'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     //
@@ -13,11 +13,22 @@
           templateUrl: "/App/main.html",
           controller: "mainController"
       })
-      .state('event', {
-          url: "/event/:eventId",
+      .state('eventCreate', {
+          url: "/eventCreate/",
           templateUrl: "/App/event.html",
-          controller: "eventController"
+          controller: "eventController",
+          data: {
+              createEvent: true
+          }
       })
+        .state('eventEdit', {
+            url: "/eventEdit/:eventId",
+            templateUrl: "/App/event.html",
+            controller: "eventController",
+            data: {
+                createEvent: false
+            }
+        })
     .state('userHome', {
         url: "/userHome",
         templateUrl: "/App/userHome.html",
