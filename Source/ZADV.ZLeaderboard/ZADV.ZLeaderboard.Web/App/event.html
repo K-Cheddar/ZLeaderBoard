@@ -1,8 +1,7 @@
-﻿<div class="container">
+﻿<div class="container event-form">
     <h2 ng-if="model.createEvent">Create Event</h2>
     <h2 ng-if="!model.createEvent">Edit Event</h2>
-    <button ng-disabled="eventForm.$invalid" type="button" class="btn btn-primary" style="float: right" ng-click="save()">Save</button>
-    <br />
+    <button ng-disabled="eventForm.$invalid" type="button" class="btn btn-primary btn-right" ng-click="save()">Save</button>
     <form name="eventForm">
         <div class="form-group">
             <label for="eventName">Event Name *</label>
@@ -11,12 +10,37 @@
         </div>
         <div class="form-group">
             <label for="startAt">Start *</label>
-            <input type="datetime-local" class="form-control" name="startAt" id="startAt" ng-model="model.event.StartAt" required />
+            <!--<input type="datetime-local" class="form-control" name="startAt" id="startAt" ng-model="model.event.StartAt" required />-->
+            <div class="">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" id="startAt" role="button" data-toggle="dropdown">
+                        <div class="input-group data">
+                            <input type="text" class="form-control dateinput" name="startAt" data-ng-model="model.event.StartAt" required>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="model.event.StartAt" data-datetimepicker-config="{ dropdownSelector: '#startAt' }"></datetimepicker>
+                    </ul>
+                </div>
+            </div>
             <small ng-if="eventForm.startAt.$invalid" style="color:red">Start Date and Time are required</small>
         </div>
         <div class="form-group">
             <label for="endAt">End *</label>
-            <input type="datetime-local" class="form-control" name="endAt" id="endAt" ng-model="model.event.EndAt" required />
+            <div class="">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" name="endAt" id="endAt" role="button" data-toggle="dropdown">
+                        <div class="input-group data">
+                            <input type="text" class="form-control dateinput" name="endAt" data-ng-model="model.event.EndAt" required> 
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="model.event.EndAt" data-datetimepicker-config="{ dropdownSelector: '#endAt' }"></datetimepicker>
+                    </ul>
+                </div>
+            </div>
             <small ng-if="eventForm.endAt.$invalid" style="color:red">End Date and Time are required</small>
         </div>
         <div class="form-group">
@@ -59,18 +83,6 @@
             <td width="20"><a href="" ng-click="removeParticipant($index)" style="color:black"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a></td>
         </tr>
     </table>
-    <a href="#main" class="btn btn-danger" style="float: left">Cancel</a>
-    <button ng-disabled="eventForm.$invalid" type="button" class="btn btn-primary" style="float: right" ng-click="save()">Save</button>
-
-
-
-</div>
-
-<div class="form-group">
-    <div class='input-group date' id='datetimepicker1'>
-        <input type='text' class="form-control" ng-model="selectedDt" data-date-time-picker />
-        <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-        </span>
-    </div>
+    <a href="#main" class="btn btn-danger btn-left">Cancel</a>
+    <button ng-disabled="eventForm.$invalid" type="button" class="btn btn-primary btn-right"ng-click="save()">Save</button>
 </div>

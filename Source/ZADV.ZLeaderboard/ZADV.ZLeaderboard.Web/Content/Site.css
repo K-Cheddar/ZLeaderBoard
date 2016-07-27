@@ -16,6 +16,10 @@ textarea {
     max-width: 280px;
 }
 
+.dateinput {
+    max-width: none;
+}
+
 .card {
     padding: 5px;
     text-align: center;
@@ -38,17 +42,39 @@ textarea {
     margin: 10px;
 }
 
+.btn-left {
+    float: left;
+    display: block;
+}
+
+.btn-right {
+    float: right;
+}
+
 @media (max-width: 768px) {
     .btn {
         padding: 10px 41px;
         max-width: 80%;
     }
+
+    .event-form {
+        width: 100%;
+    }
+
 }
 
 @media(min-width: 768px) {
     .navbar-toggle-style {
         display: none;
     }
+
+    .event-form {
+        width: 60%;
+    }
+}
+
+.event-form {
+    float: left;
 }
 
 .pastEvent {
@@ -59,9 +85,10 @@ textarea {
 a {
     color: black;
 }
-a:hover {
-    color: #ed1c24;
-}
+
+    a:hover {
+        color: #ed1c24;
+    }
 
 .eActive {
     color: green;
@@ -127,4 +154,3 @@ a:hover {
     border: solid 3px;
     font-size: 20px;
 }
-

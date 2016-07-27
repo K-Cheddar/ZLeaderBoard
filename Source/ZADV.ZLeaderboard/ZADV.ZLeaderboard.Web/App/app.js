@@ -1,5 +1,5 @@
 ﻿angular.module('adminApp', [
-    'ui.router', 'ngCookies', 'ngRoute','angularBasicAuth', 'truncate'
+    'ui.router', 'ngCookies', 'ngRoute', 'angularBasicAuth', 'truncate', 'ui.bootstrap.datetimepicker'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
     

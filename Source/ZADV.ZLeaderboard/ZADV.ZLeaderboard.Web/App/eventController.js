@@ -11,23 +11,6 @@
           //participantImage: undefined
       };
 
-      var dateTimePicker = function () {
-          return {
-              restrict: "A",
-              require: "ngModel",
-              link: function (scope, element, attrs, ngModelCtrl) {
-                  var parent = $(element).parent();
-                  var dtp = parent.datetimepicker({
-                      format: "LL",
-                      showTodayButton: true
-                  });
-                  dtp.on("dp.change", function (e) {
-                      ngModelCtrl.$setViewValue(moment(e.date).format("LL"));
-                      scope.$apply();
-                  });
-              }
-          };
-      };
 
       if ($scope.model.eventId) {
           eventService.get($scope.model.eventId).success(function (event) {
@@ -83,7 +66,10 @@
           }
 
       }
-
+      $scope.inputOnTimeSet = function (newDate, oldDate) {
+          console.log(newDate);
+          console.log(oldDate);
+      }
       $scope.addParticipant = function () {
           $scope.model.participants.push({
               Name: $scope.model.participantName,

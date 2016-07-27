@@ -30,7 +30,8 @@ namespace ZADV.ZLeaderboard.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/font-awesome.min.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/datetimepicker.css"));
         }
     }
 }
