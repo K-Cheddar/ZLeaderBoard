@@ -3,12 +3,14 @@
         <h2>Active Events</h2>
         <br />
         <div ng-repeat="event in model.events.ActiveEvents">
-            <div class="card">
-                <div class="card-block col-xs-6 col-md-4 col-lg-3" style="border:groove">
-                    <h4 class="card-title">{{event.Name}}</h4>
+            <div class="card col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card-block ">
+                    <h4 class="card-title">{{event.Name | characters:24: false}}</h4>
                     <p class="card-text">Start: {{event.StartAt | date:'M/d/yy'}} {{event.StartAt | date:'h:mm a'}}</p>
                     <p class="card-text">End: {{event.EndAt | date:'M/d/yy'}} {{event.EndAt | date:'h:mm a'}}</p>
-                    <a ui-sref="userEventVote({eventId: event.Id})" class="btn btn-primary">Vote</a><a ui-sref="userEventView({eventId: event.Id})" class="btn btn-primary">View</a>
+                    <p class="description">{{event.Description | characters:80: false}}</p> 
+                    <a ui-sref="userEventVote({eventId: event.Id})" class="btn btn-primary">Vote</a>
+                    <a ui-sref="userEventView({eventId: event.Id})" class="btn btn-primary">Dashboard</a>
                 </div>
             </div>
         </div>
@@ -16,12 +18,15 @@
     <br />
     <div class="container">
         <h2>Upcoming Events</h2>
-        <div ng-repeat="event in model.events.UpcomingEvents">
-            <div class="card">
-                <div class="card-block col-xs-6 col-md-4 col-lg-3" style="border:groove">
-                    <h4 class="card-title">{{event.Name}}</h4>
+        <a ng-if="!model.showUpcoming" ng-click="showHide('Upcoming')" class="btn btn-default">Hide</a>
+        <a ng-if="model.showUpcoming" ng-click="showHide('Upcoming')" class="btn btn-default">Show</a>
+        <div ng-hide="model.showUpcoming" ng-repeat="event in model.events.UpcomingEvents">
+            <div class="card col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card-block">
+                    <h4 class="card-title">{{event.Name | characters:24: false}}</h4>
                     <p class="card-text">Start: {{event.StartAt | date:'M/d/yy'}} {{event.StartAt | date:'h:mm a'}}</p>
                     <p class="card-text">End: {{event.EndAt | date:'M/d/yy'}} {{event.EndAt | date:'h:mm a'}}</p>
+                    <p class="description">{{event.Description | characters:80: false}}</p> 
                 </div>
             </div>
         </div>
@@ -29,14 +34,19 @@
     <br />
     <div class="container">
         <h2>Past Events</h2>
-        <div ng-repeat="event in model.events.PastEvents | limitTo:3">
-            <div class="card">
-                <a ui-sref="userEventView({eventId: event.Id})"><div class="card-block col-xs-6 col-md-4 col-lg-3" style="border:groove; opacity:0.5; color:black">
-                    <h4 class="card-title">{{event.Name}}</h4>
-                    <p class="card-text">Start: {{event.StartAt | date:'M/d/yy'}} {{event.StartAt | date:'h:mm a'}}</p>
-                    <p class="card-text">End: {{event.EndAt | date:'M/d/yy'}} {{event.EndAt | date:'h:mm a'}}</p>
-                </div></a>
+        <a ng-if="!model.showPast" ng-click="showHide('Past')" class="btn btn-default">Hide</a>
+        <a ng-if="model.showPast" ng-click="showHide('Past')" class="btn btn-default">Show</a>
+        <div ng-hide="model.showPast" ng-repeat="event in model.events.PastEvents | limitTo:3">
+            <div class="card col-xs-12 col-sm-6 col-md-4 col-lg-3 pastEvent">
+                <a ui-sref="eventWinner({eventId: event.Id})">
+                    <div class="card-block">
+                        <h4 class="card-title">{{event.Name | characters:24: false}}</h4>
+                        <p class="card-text">Start: {{event.StartAt | date:'M/d/yy'}} {{event.StartAt | date:'h:mm a'}}</p>
+                        <p class="card-text">End: {{event.EndAt | date:'M/d/yy'}} {{event.EndAt | date:'h:mm a'}}</p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
+    <br /> <br /> <br /> <br />
 </div>

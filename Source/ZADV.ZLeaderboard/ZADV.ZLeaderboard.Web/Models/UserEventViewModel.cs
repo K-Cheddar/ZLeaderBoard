@@ -13,6 +13,10 @@ namespace ZADV.ZLeaderboard.Web.Models
 
         public List<ParticipantViewModel> Participants { get; set; }
 
+        public string Winners { get; set; }
+
+        public string Description { get; set; }
+
         public UserEventViewModel()
         {
             Participants = new List<ParticipantViewModel>();

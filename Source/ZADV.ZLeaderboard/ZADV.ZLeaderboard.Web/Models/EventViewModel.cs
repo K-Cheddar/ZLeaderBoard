@@ -19,7 +19,9 @@ namespace ZADV.ZLeaderboard.Web.Models
         public DateTime EndAt { get; set; }
 
         [Required]
-        public bool IsActive { get; set; }     
+        public bool IsActive { get; set; }
+
+        public string Description { get; set; }
 
         public List<ParticipantViewModel> Participants { get; set; }
 

@@ -33,17 +33,21 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             UserEventsViewModel model = new UserEventsViewModel();
             foreach (var singleEvent in allEvents)
             {
-                if (singleEvent.StartAt <= DateTime.Today && singleEvent.EndAt >= DateTime.Today)
+                if (EventParticipants(singleEvent).Count > 0)
                 {
-                    model.ActiveEvents.Add(singleEvent);
-                }
-                else if (singleEvent.StartAt > DateTime.Today)
-                {
-                    model.UpcomingEvents.Add(singleEvent);
-                }
-                else if (singleEvent.StartAt < DateTime.Today && singleEvent.EndAt < DateTime.Today)
-                {
-                    model.PastEvents.Add(singleEvent);
+                    
+                    if (singleEvent.StartAt <= DateTime.Today && singleEvent.EndAt >= DateTime.Today)
+                    {
+                        model.ActiveEvents.Add(singleEvent);
+                    }
+                    else if (singleEvent.StartAt > DateTime.Today)
+                    {
+                        model.UpcomingEvents.Add(singleEvent);
+                    }
+                    else if (singleEvent.StartAt < DateTime.Today && singleEvent.EndAt < DateTime.Today)
+                    {
+                        model.PastEvents.Add(singleEvent);
+                    }
                 }
             }
 
@@ -53,11 +57,14 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
         public UserEventViewModel Get(int id)
         {
             IList<Participant> participants = EventParticipants(_eventRepository.Get(id)).OrderBy(p => p.Name).ToList();
-            int voteCount = 0;
+            List<ParticipantViewModel> winners = new List<ParticipantViewModel>();
+            List<string> winnerNames = new List<string>();
+            int voteCount = 0, max = 0;
 
             UserEventViewModel model = new UserEventViewModel()
             {
-                Name = _eventRepository.Get(id).Name
+                Name = _eventRepository.Get(id).Name,
+                Description = _eventRepository.Get(id).Description
             };
 
 
@@ -65,15 +72,36 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             {
                 //vote count gets the number of participants from the list equal to this one
                 voteCount = _voterRepository.GetAll().Where(p => p.Participant.Id == participant.Id).Count();
+
                 ParticipantViewModel part = new ParticipantViewModel()
                 {
                     Name = participant.Name,
                     Id = participant.Id,
                     VoteCount = voteCount
                 };
+                if (voteCount > max)
+                {
+                    max = voteCount;
+                    winners.Clear();
+                    winners.Add(part);
+                }
+                else if (voteCount == max)
+                {
+                    winners.Add(part);
+                }
                 model.Participants.Add(part);
             }
 
+            //foreach(var participant in model.Participants)
+            //{
+            //    max = participant.VoteCount;
+
+            //}
+            foreach(var winner in winners)
+            {
+                winnerNames.Add(winner.Name);
+            }
+            model.Winners = string.Join(", ", winnerNames);
             return model;
         }
 

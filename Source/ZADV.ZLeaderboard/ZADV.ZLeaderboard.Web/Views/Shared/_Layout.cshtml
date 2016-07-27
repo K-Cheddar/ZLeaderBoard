@@ -10,6 +10,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
     <script src="~/App/vendors/angular-ui-router.min.js"></script>
+    <script src="~/App/vendors/angular-local-storage.js"></script>
+    <script src="~/App/vendors/angular-base64.js"></script>
+    <script src="~/App/vendors/angular-basicauth.js"></script>
     <script src="~/App/app.js"></script>
     <script src="~/App/mainController.js"></script>
     <script src="~/App/eventController.js"></script>
@@ -19,6 +22,10 @@
     <script src="~/App/userEventController.js"></script>
     <script src="~/App/vendors/angular-cookies.js"></script>
     <script src="~/App/vendors/angular-route.js"></script>
+    <script src="~/App/adminLoginController.js"></script>
+    <script src="~/App/authController.js"></script>
+    <script src="~/App/vendors/truncate.js"></script>
+    <script src="~/App/vendors/moment.js"></script>
 </head>
 <body>
 
@@ -28,7 +35,6 @@
     @Scripts.Render("~/bundles/flow")
     @Scripts.Render("~/bundles/moment")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/fancybox")
     @RenderSection("scripts", required: false)
 </body>
 </html>

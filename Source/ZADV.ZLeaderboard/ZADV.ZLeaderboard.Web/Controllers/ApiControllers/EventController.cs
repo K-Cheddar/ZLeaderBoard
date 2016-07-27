@@ -17,10 +17,14 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
+using ZADV.ZLeaderboard.Web.Security;
 
 namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 {
-
+    //[BasicAuthenticationAttribute("zAdmin", "zPassword",
+    //BasicRealm = "Zimm")]
+    //[IdentityBasicAuthentication] // Enable Basic authentication for this controller.
+    [Authorize] // Require authenticated requests.
     public class EventController : ApiController
     {
         private IEventRepository _eventRepository;
@@ -34,6 +38,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 
         // GET api/<controller>
         [HttpGet]
+
         public IEnumerable<Event> Get()
         {
             IList<Event> currentEvents = _eventRepository.GetAll().Where(x => x.EndAt >= DateTime.Now).OrderByDescending(e => e.IsActive).ThenBy(d => d.StartAt).ToList();
@@ -56,6 +61,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                 EndAt = currentEvent.EndAt,
                 StartAt = currentEvent.StartAt,
                 IsActive = currentEvent.IsActive,
+                Description = currentEvent.Description
             };
 
             IList<Participant> participants = EventParticipants(currentEvent);
@@ -67,7 +73,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                     Name = particiant.Name,
                     Id = particiant.Id
                 };
-                if(model.Participants == null)
+                if (model.Participants == null)
                 {
                     model.Participants = new List<ParticipantViewModel>();
                 }
@@ -87,10 +93,12 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                     Name = model.Name,
                     StartAt = model.StartAt,
                     EndAt = model.EndAt,
-                    IsActive = model.IsActive
+                    IsActive = model.IsActive,
+                    Description = model.Description
+                   
                 };
                 _eventRepository.Add(newEvent);
-                AddParticipant(model, newEvent);
+                AddParticipants(model, newEvent);
             }
         }
 
@@ -137,14 +145,15 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             editEvent.StartAt = model.StartAt;
             editEvent.EndAt = model.EndAt;
             editEvent.IsActive = model.IsActive;
+            editEvent.Description = model.Description;
             _eventRepository.Update(editEvent);
 
             IList<Participant> currentParticipants = EventParticipants(editEvent);
             bool present;
-            foreach(var currentParticipant in currentParticipants)
+            foreach (var currentParticipant in currentParticipants)
             {
                 present = false;
-                foreach(var participant in model.Participants)
+                foreach (var participant in model.Participants)
                 {
                     if (participant.Id == currentParticipant.Id)
                     {
@@ -153,20 +162,17 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                         break;
                     }
                 }
-                if (!present)
+
+                if(!present)
                 {
                     _participantRepository.Remove(currentParticipant);
                 }
 
             }
-            foreach (var participant in model.Participants)
-            {
-                AddParticipant(model, editEvent);   
-            }
-         
+            AddParticipants(model, editEvent);
         }
 
-        private void AddParticipant(EventViewModel model, Event editEvent)
+        private void AddParticipants(EventViewModel model, Event editEvent)
         {
             foreach (var participant in model.Participants)
             {

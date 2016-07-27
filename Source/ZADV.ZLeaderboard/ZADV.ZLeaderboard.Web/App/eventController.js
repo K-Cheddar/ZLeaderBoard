@@ -11,6 +11,24 @@
           //participantImage: undefined
       };
 
+      var dateTimePicker = function () {
+          return {
+              restrict: "A",
+              require: "ngModel",
+              link: function (scope, element, attrs, ngModelCtrl) {
+                  var parent = $(element).parent();
+                  var dtp = parent.datetimepicker({
+                      format: "LL",
+                      showTodayButton: true
+                  });
+                  dtp.on("dp.change", function (e) {
+                      ngModelCtrl.$setViewValue(moment(e.date).format("LL"));
+                      scope.$apply();
+                  });
+              }
+          };
+      };
+
       if ($scope.model.eventId) {
           eventService.get($scope.model.eventId).success(function (event) {
               event.StartAt = new Date(event.StartAt);
@@ -20,6 +38,10 @@
           }).error(function (err) {
               alert("Error");
           })
+      }
+      else {
+          $scope.model.event.StartAt = new Date();
+          $scope.model.event.EndAt = new Date();
       }
 
       $scope.save = function () {
@@ -37,15 +59,10 @@
               startAt: $scope.model.event.StartAt,
               endAt: $scope.model.event.EndAt,
               isActive: checked,
+              description: $scope.model.event.Description,
               participants: $scope.model.participants
           }
 
-          //$scope.eventForm.$setPristine();
-          //$scope.model.event.Name = "";
-          //$scope.model.event.StartAt = "";
-          //$scope.model.event.EndAt = "";
-          //$scope.model.event.IsActive = "";
-          //$scope.model.participants = [];
           if ($scope.model.eventId == null || $scope.model.eventId == 0) {
               eventService.post(newEvent).success(function () {
 

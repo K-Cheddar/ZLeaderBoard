@@ -1,10 +1,23 @@
 ﻿@*<a ui-sref="main">Main</a>
     <a ui-sref="state2">Page 2</a>*@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <p style="width:50px" class="navbar-text navbar-right"><a ui-sref="main" style="color:black">Home </a></p>
-        <p style="width:100px" class="navbar-text navbar-right"><a ui-sref="eventCreate" style="color:black">Create Event</a></p>
-        <p style="width:100px" class="navbar-text navbar-right"><a ui-sref="userHome" style="color:black">User Home</a></p>
-    </div>
-</nav>
-<div ui-view></div>
+<div class="container" ng-controller="authController">
+    <nav class="navbar navbar-style navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <i class="fa fa-bars navbar-toggle-style hover" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" aria-hidden="true"></i>
+                <a class="navbar-brand" href="#">zLeaderboard</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a ng-if="model.authenticated" href="" ng-click="logout()">Logout </a></li>
+                    <li><a ng-if="model.authenticated" ui-sref="main">Admin Home  </a></li>
+                    <li><a ng-if="model.authenticated" ui-sref="eventCreate">Create Event</a></li>
+                    <li><a ng-if="model.authenticated" ui-sref="userHome">User Home </a></li>
+                    <li><a ng-if="!model.authenticated" ui-sref="adminLogin">Admin Login </a></li>
+                    <li><a ng-if="!model.authenticated" ui-sref="userHome">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div ui-view></div>
+</div>

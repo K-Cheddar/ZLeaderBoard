@@ -1,32 +1,23 @@
-﻿<!--<input ng-model="model.name" /> <br /> {{message()}}
-<br />-->
-<!--<pre>
-    {{model.events|json}}
-
-</pre>-->
-<!--<ul class="table">
-    <li ng-repeat="event in model.events">
-        <span class="Event">{{event|name}}</span>
-    </li>
-</ul>-->
-<div class="container">
+﻿<div class="container">
     <h1>Events</h1>
     <a ui-sref="eventCreate" class="btn btn-primary"> Create Event</a>
     <br />
     <table class="table table-hover">
         <tr class="active">
+            <th> </th>
             <th>Name</th>
             <th>Starts</th>
             <th>Ends</th>
-            <th>Status</th>
             <th>Edit</th>
         </tr>
-        <tr ng-repeat="event in model.events">
-            <td>{{event.Name}}</td>
-            <td>{{event.StartAt | date:'MMM d, y'}}<br />{{event.StartAt | date:'h:mm a'}}</td>
-            <td>{{event.EndAt | date:'MMM d, y'}}<br />{{event.EndAt | date:'h:mm a'}}</td>
-            <td>{{event.IsActive == true ? "Active" : "Not Active"}}</td>
-            <td><a ui-sref="eventEdit({eventId: event.Id})" style="color:black"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td>
+        <tr class="hover" ui-sref="eventEdit({eventId: event.Id})" ng-repeat="event in model.events">
+            <td colspan="1" ng-if="event.IsActive"><i class="fa fa-dot-circle-o eActive" aria-hidden="true"></i></td>
+            <td colspan="1" ng-if="!event.IsActive"><i class="fa fa-dot-circle-o eInactive" aria-hidden="true"></i></td>
+            <td>{{event.Name | characters:30: false}}</td>
+            <td>{{event.StartAt | date:'short'}}</td>
+            <td>{{event.EndAt | date:'short'}}</td>
+            <!--<td>{{event.IsActive == true ? "Active" : "Not Active"}}</td>-->
+            <td><a ui-sref="eventEdit({eventId: event.Id})"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td>
         </tr>
     </table>
 </div>

@@ -1,10 +1,11 @@
 ﻿angular.module('adminApp', [
-    'ui.router', 'ngCookies', 'ngRoute'
+    'ui.router', 'ngCookies', 'ngRoute','angularBasicAuth', 'truncate'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
+    
     //
     // For any unmatched url, redirect to /state1
-    $urlRouterProvider.otherwise("/main");
+    $urlRouterProvider.otherwise("/userHome");
     //
     // Now set up the states
     $stateProvider
@@ -42,6 +43,14 @@
             showButton: false
         }
     })
+    .state('eventWinner', {
+        url: "/eventWinner/:eventId",
+        templateUrl: "/App/eventWinner.html",
+        controller: "userEventController",
+        data: {
+            showButton: true
+        }
+    })
     .state('userEventVote', {
         url: "/userEventVote/:eventId",
         templateUrl: "/App/userEvent.html",
@@ -50,6 +59,15 @@
             showButton: true
         }
     })
+    .state('adminLogin', {
+        url: "/adminLogin",
+        templateUrl: "/App/adminLogin.html",
+        controller: "adminLoginController"
+    })
+
+    //data: {
+    //    authorizedRoles: [USER_ROLES.admin]
+    //}
 })
     .constant("myConfig", {
         'apiUrl': 'http://localhost:60919/'

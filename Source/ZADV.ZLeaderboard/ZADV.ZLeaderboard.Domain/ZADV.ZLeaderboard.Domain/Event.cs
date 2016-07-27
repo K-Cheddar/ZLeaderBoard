@@ -26,5 +26,7 @@ namespace Zadv.ZLeaderboard.Domain
 
         [Required]
         public bool IsActive { get; set; }
+
+        public string Description { get; set; }
     }
 }

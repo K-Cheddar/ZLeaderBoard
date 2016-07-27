@@ -12,7 +12,7 @@
       };
 
       if (!$scope.model.voteAllowed) {
-          $interval(reload, 3000);
+          $interval(reload, 5000);
       }
 
       function reload() {
@@ -37,9 +37,6 @@
 
       $scope.vote = function (participant) {
 
-          //var cookie = 
-
-
           userEventService.put(participant.Id).success(function (voted) {
               participant.VoteCount = voted.VoteCount;
               $scope.model.alreadyVoted = voted.Voted;
@@ -50,7 +47,29 @@
           }).error(function (err) {
               alert("Error");
           })
+      }
 
+      $scope.getTotal = function () {
+          var total = 0;
+          for (var i = 0; i < $scope.model.participants.length; i++){
+              var count = $scope.model.participants[i];
+              total += count.VoteCount;
+          }
+          return total;
+      }
 
+      $scope.getMax = function () {
+          var max = 0;
+          for (var i = 0; i < $scope.model.participants.length; i++) {
+              var count = $scope.model.participants[i];
+              if (count.VoteCount > max) {
+                  max = count.VoteCount;
+              }
+          }
+          return max;
+      }
+
+      $scope.getPercent = function (voteCount) {
+          return (voteCount / $scope.getMax())*100;
       }
   });

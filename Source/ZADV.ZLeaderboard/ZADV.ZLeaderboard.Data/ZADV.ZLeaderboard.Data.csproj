@@ -81,6 +81,14 @@
     <Compile Include="Migrations\201607142016143_UpdatePart.Designer.cs">
       <DependentUpon>201607142016143_UpdatePart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607252121247_EventDes.cs" />
+    <Compile Include="Migrations\201607252121247_EventDes.Designer.cs">
+      <DependentUpon>201607252121247_EventDes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607252133572_EventDesNo.cs" />
+    <Compile Include="Migrations\201607252133572_EventDesNo.Designer.cs">
+      <DependentUpon>201607252133572_EventDesNo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParticipantRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,6 +107,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607142016143_UpdatePart.resx">
       <DependentUpon>201607142016143_UpdatePart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607252121247_EventDes.resx">
+      <DependentUpon>201607252121247_EventDes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607252133572_EventDesNo.resx">
+      <DependentUpon>201607252133572_EventDesNo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

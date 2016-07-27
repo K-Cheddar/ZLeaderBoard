@@ -172,13 +172,13 @@
       <HintPath>..\packages\Unity.WebAPI.5.2.3\lib\net45\Unity.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
-    </Reference>
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +187,8 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Security\BasicAuthHttpModule.cs" />
+    <Compile Include="Security\IdentityBasicAuthenticationAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -234,9 +236,12 @@
     <Compile Include="Models\UserEventsViewModel.cs" />
     <Compile Include="Models\VotesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\BasicAuthenticationAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\adminLogin.html" />
     <Content Include="App\app.js" />
+    <Content Include="App\eventWinner.html" />
     <Content Include="App\fancybox.js" />
     <Content Include="App\fancyboxService.js" />
     <Content Include="App\userEmail.html" />
@@ -250,10 +255,20 @@
     <Content Include="App\main.html" />
     <Content Include="App\eventController.js" />
     <Content Include="App\mainController.js" />
+    <Content Include="App\adminLoginController.js" />
+    <Content Include="App\vendors\angular-base64.js" />
+    <Content Include="App\vendors\angular-basicauth.js" />
     <Content Include="App\vendors\angular-cookies.js" />
+    <Content Include="App\vendors\angular-local-storage.js" />
     <Content Include="App\vendors\angular-route.js" />
     <Content Include="App\vendors\angular-ui-router.min.js" />
+    <Content Include="App\authController.js" />
+    <Content Include="App\vendors\datetimepickerDirective.js" />
+    <Content Include="App\vendors\moment.js" />
+    <Content Include="App\vendors\truncate.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.min.css" />
@@ -263,8 +278,6 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -292,9 +305,16 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\fancyapps-fancyBox-18d1712\CHANGELOG.md" />
     <Content Include="Scripts\fancyapps-fancyBox-18d1712\README.md" />
     <Content Include="Scripts\fancyapps-fancyBox-18d1712\sprite.psd" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\fancyapps-fancyBox-18d1712\.gitattributes" />
     <Content Include="Scripts\fancyapps-fancyBox-18d1712\demo\1_b.jpg" />
@@ -329,8 +349,12 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\ng-flow-standalone.min.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config">
@@ -362,10 +386,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>

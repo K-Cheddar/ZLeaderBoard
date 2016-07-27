@@ -5,29 +5,62 @@
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" name="email" id="email" placeholder="Name" required ng-model="model.emailTmp" /><br />
-            <button ng-disabled="emailForm.$invalid" type="submit" class="btn btn-primary" style="float: left">Next</button>
+            <button ng-disabled="emailForm.$invalid" type="submit" class="btn btn-primary" style="float: left">Submit</button>
         </div>
     </form>
 </div>
-
-<div class="container">
+<div class="container" ng-if="model.voteAllowed && model.email|| !model.voteAllowed">
     <h2>{{model.event.Name}}</h2>
+    <p>{{model.event.Description}}</p>
     <br />
     <h3 ng-if="model.voteAllowed">Vote!</h3>
     <h3 ng-if="!model.voteAllowed">Leaderboard</h3>
-    <p ng-if="model.event.Participants.length == 0"> No participants</p>
-    <table class="table table-hover" style="width:30%">
+    <table ng-if="model.voteAllowed" class="vote-table" style="width:30%">
         <tr ng-repeat="participant in model.event.Participants">
-            <td height="40" width="50"><img id="pImage" style="max-width:70px; max-height: 100px" src="http://i.imgur.com/sO7NCXh.jpg" /></td>
+            <td height="20" width="50"><img id="pImage" style="max-width:70px; max-height: 100px" />{{$index +1}}.</td>
             <td>{{participant.Name}}</td>
             <td>{{participant.VoteCount}}</td>
             <td ng-if="model.voteAllowed">
                 <a href="" class="btn" ng-disabled="!model.email" ng-click="vote(participant)">
                     <i style="color:black" class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
                 </a>
-                <!--<p ng-if="model.alreadyVoted" style="font-size:10px; color:crimson">You've already voted!</p></td>-->
         </tr>
     </table>
+    <!--<table ng-if="!model.voteAllowed" class="table table-hover" style="width:30%">
+        <tr class="active">
+            <th> </th>
+            <th>Name</th>
+            <th>Votes</th>
+        </tr>
+        <tr ng-repeat="participant in model.event.Participants | orderBy:'-VoteCount'">
+            <td height="40" width="50"><img id="pImage" style="max-width:70px; max-height: 100px" />{{$index +1}}.</td>
+            <td>{{participant.Name}}</td>
+            <td>{{participant.VoteCount}}</td>
+            <td ng-if="model.voteAllowed">
+                <a href="" class="btn" ng-disabled="!model.email" ng-click="vote(participant)">
+                    <i style="color:black" class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
+                </a>
+        </tr>
+    </table>-->
+        <table class="progress-table">
+            <tr>
+                <th>Name </th>
+                <!--<th ng-if="model.voteAllowed"> </th>-->
+                <th> </th>
+            </tr>
+            <tr ng-repeat="participant in model.event.Participants | orderBy:'-VoteCount'">
+                <td >{{participant.Name}}</td>
+                <!--<td ng-if="model.voteAllowed">
+                    <a href="" class="" ng-disabled="!model.email" ng-click="vote(participant)">
+                        <i style="color:black" class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
+                    </a>
+                </td>-->
+                <td class="vote-bar">
+                    <div class="progress-bar" style="width:{{getPercent(participant.VoteCount)}}%"><p>{{participant.VoteCount}}</p></div>
+                    <div ng-if="participant.VoteCount==0" class="progress-bar" style="width:8%"><p>{{participant.VoteCount}}</p></div>
+                </td>
+            </tr>
+        </table>
     <div ng-if="model.alreadyVoted" class="alert alert-danger alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> You've already voted for that participant! </div>
-    <a href="#userHome" class="btn btn-danger" style="float: left">Cancel</a>
+    <a href="#userHome" class="btn btn-primary" style="float: left">Back</a>
 </div>  

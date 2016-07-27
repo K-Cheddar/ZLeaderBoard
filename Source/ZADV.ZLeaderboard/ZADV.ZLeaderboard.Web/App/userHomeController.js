@@ -2,7 +2,9 @@
   .controller('userHomeController', function ($scope, userEventService, $stateParams, $location) {
 
       $scope.model = {
-          events: []
+          events: [],
+          showUpcoming: false,
+          showPast: false
       };
 
       userEventService.all().success(function (events) {
@@ -10,5 +12,14 @@
       }).error(function (err) {
           alert("Error");
       })
+
+      $scope.showHide = function (state){
+          if (state == 'Upcoming') {
+              $scope.model.showUpcoming = !$scope.model.showUpcoming;
+          }
+          if (state == 'Past') {
+              $scope.model.showPast = !$scope.model.showPast;
+          }
+      }
 
   });

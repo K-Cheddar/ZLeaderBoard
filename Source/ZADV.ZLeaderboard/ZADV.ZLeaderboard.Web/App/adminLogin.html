@@ -1,0 +1,19 @@
+﻿<br />
+<div class="container">
+    {{loggedInUsername}}
+    <form name="loginForm" ng-submit="login()">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" id="username" ng-model="model.username" required />
+            <!--<small ng-if="loginForm.username.$invalid" style="color:red">Username is required</small>-->
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" id="password" ng-model="model.password" required />
+            <!--<small ng-if="loginForm.username.$invalid" style="color:red">Password is required</small>-->
+        </div>
+        <small ng-if="model.loginError" style="color:red">Login information incorrect</small><br ng-if="model.loginError" /> <br ng-if="model.loginError" />
+        <button ng-disabled="loginForm.$invalid" type="submit" class="btn btn-primary btn-smx">Login</button>
+    </form>
+
+</div>

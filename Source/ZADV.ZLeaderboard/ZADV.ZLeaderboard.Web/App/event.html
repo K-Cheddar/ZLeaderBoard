@@ -19,12 +19,17 @@
             <input type="datetime-local" class="form-control" name="endAt" id="endAt" ng-model="model.event.EndAt" required />
             <small ng-if="eventForm.endAt.$invalid" style="color:red">End Date and Time are required</small>
         </div>
+        <div class="form-group">
+            <label for="eventName">Event Description</label>
+            <textarea class="form-control" rows="5" name="eventDescription" placeholder="Optional description of event" ng-model="model.event.Description"></textarea>
+        </div>
         <div class="checkbox">
             <label>
                 Is Active <input type="checkbox" ng-model="model.event.IsActive" />
             </label>
         </div>
     </form>
+
     <br />
     <h3>Add Participant</h3>
 
@@ -49,7 +54,7 @@
     <p ng-if="model.participants.length == 0"> No participants yet!</p>
     <table class="table table-hover" style="width:30%">
         <tr ng-repeat="participant in model.participants">
-            <td height="50" width="50"><img id="pImage" style="max-width:70px; max-height: 100px" src="http://i.imgur.com/sO7NCXh.jpg" /></td>
+            <td height="40" width="50"><img id="pImage" style="max-width:70px; max-height: 100px" />{{$index +1}}.</td>
             <td>{{participant.Name}}</td>
             <td width="20"><a href="" ng-click="removeParticipant($index)" style="color:black"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a></td>
         </tr>
@@ -57,4 +62,15 @@
     <a href="#main" class="btn btn-danger" style="float: left">Cancel</a>
     <button ng-disabled="eventForm.$invalid" type="button" class="btn btn-primary" style="float: right" ng-click="save()">Save</button>
 
+
+
+</div>
+
+<div class="form-group">
+    <div class='input-group date' id='datetimepicker1'>
+        <input type='text' class="form-control" ng-model="selectedDt" data-date-time-picker />
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
 </div>
