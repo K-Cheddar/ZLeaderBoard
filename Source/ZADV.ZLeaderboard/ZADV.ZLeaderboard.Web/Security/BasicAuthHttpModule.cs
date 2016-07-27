@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Security.Principal;
@@ -32,7 +33,9 @@ namespace ZADV.ZLeaderboard.Web.Security
         // TODO: Here is where you would validate the username and password.
         private static bool CheckPassword(string username, string password)
         {
-            return username == "zAdmin" && password == "zPassword";
+            var userName = ConfigurationManager.AppSettings["AdminUserName"];
+            var pwd = ConfigurationManager.AppSettings["AdminPassword"];
+            return username.Equals(userName, StringComparison.OrdinalIgnoreCase) && password.Equals(pwd);
         }
 
         private static void AuthenticateUser(string credentials)
