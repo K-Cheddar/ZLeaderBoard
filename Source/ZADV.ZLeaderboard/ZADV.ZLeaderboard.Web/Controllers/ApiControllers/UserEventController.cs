@@ -29,14 +29,14 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
         [HttpGet]
         public UserEventsViewModel Get()
         {
-            IList<Event> allEvents = _eventRepository.GetAll().Where(e => e.IsActive).ToList();
+            IList<Event> allEvents = _eventRepository.GetAll().Where(e => e.IsActive).OrderBy(p => p.StartAt).ToList();
             UserEventsViewModel model = new UserEventsViewModel();
             foreach (var singleEvent in allEvents)
             {
                 if (EventParticipants(singleEvent).Count > 0)
                 {
                     
-                    if (singleEvent.StartAt <= DateTime.Today && singleEvent.EndAt >= DateTime.Today)
+                    if (singleEvent.StartAt <= DateTime.Today.AddDays(1) && singleEvent.EndAt >= DateTime.Today)
                     {
                         model.ActiveEvents.Add(singleEvent);
                     }

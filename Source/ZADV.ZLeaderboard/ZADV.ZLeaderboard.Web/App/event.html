@@ -20,7 +20,7 @@
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="model.event.StartAt" data-datetimepicker-config="{ dropdownSelector: '#startAt' }"></datetimepicker>
+                        <datetimepicker data-before-render="" data-ng-model="model.event.StartAt" data-datetimepicker-config="{ dropdownSelector: '#startAt' }"></datetimepicker>
                     </ul>
                 </div>
             </div>
@@ -47,9 +47,10 @@
             <label for="eventName">Event Description</label>
             <textarea class="form-control" rows="5" name="eventDescription" placeholder="Optional description of event" ng-model="model.event.Description"></textarea>
         </div>
-        <div class="checkbox">
-            <label>
-                Is Active <input type="checkbox" ng-model="model.event.IsActive" />
+        <div>
+            <label class="hover" ng-click="ActiveBox()" for="isActive">Active</label>
+            <label class="hover">
+                <input type="checkbox" ng-model="model.event.IsActive" />
             </label>
         </div>
     </form>
@@ -76,13 +77,13 @@
     <br /><br />
     <h4>Participants</h4>
     <p ng-if="model.participants.length == 0"> No participants yet!</p>
-    <table class="table table-hover" style="width:30%">
+    <table class="table table-hover">
         <tr ng-repeat="participant in model.participants">
             <td height="40" width="50"><img id="pImage" style="max-width:70px; max-height: 100px" />{{$index +1}}.</td>
             <td>{{participant.Name}}</td>
             <td width="20"><a href="" ng-click="removeParticipant($index)" style="color:black"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a></td>
         </tr>
     </table>
-    <a href="#main" class="btn btn-danger btn-left">Cancel</a>
     <button ng-disabled="eventForm.$invalid" type="button" class="btn btn-primary btn-right"ng-click="save()">Save</button>
+    <a href="#main" class="btn btn-danger btn-left">Cancel</a>
 </div>

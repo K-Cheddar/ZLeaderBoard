@@ -10,11 +10,11 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 .dateinput {
     max-width: none;
@@ -44,7 +44,6 @@ textarea {
 
 .btn-left {
     float: left;
-    display: block;
 }
 
 .btn-right {
@@ -61,6 +60,10 @@ textarea {
         width: 100%;
     }
 
+    .btn-left {
+    float: right;
+}
+
 }
 
 @media(min-width: 768px) {
@@ -69,7 +72,7 @@ textarea {
     }
 
     .event-form {
-        width: 60%;
+        width: 50%;
     }
 }
 

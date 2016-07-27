@@ -25,6 +25,7 @@
       else {
           $scope.model.event.StartAt = new Date();
           $scope.model.event.EndAt = new Date();
+          $scope.model.event.IsActive = true;
       }
 
       $scope.save = function () {
@@ -83,5 +84,7 @@
       $scope.removeParticipant = function (index) {
           $scope.model.participants.splice(index, 1);
       }
-
+      $scope.ActiveBox = function (){
+          $scope.model.event.IsActive = !$scope.model.event.IsActive;
+      }
   });
