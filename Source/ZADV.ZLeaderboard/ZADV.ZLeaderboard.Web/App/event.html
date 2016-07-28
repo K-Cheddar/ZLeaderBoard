@@ -15,12 +15,12 @@
                 <div class="dropdown">
                     <a class="dropdown-toggle" id="startAt" role="button" data-toggle="dropdown">
                         <div class="input-group data">
-                            <input type="text" class="form-control dateinput" name="startAt" data-ng-model="model.event.StartAt" required>
+                            <input type="text" class="form-control dateinput" name="startAt" data-ng-model="model.event.StartAt"  required>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
+                        </div> 
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-before-render="" data-ng-model="model.event.StartAt" data-datetimepicker-config="{ dropdownSelector: '#startAt' }"></datetimepicker>
+                        <datetimepicker data-ng-model="model.event.StartAt" data-datetimepicker-config="{ dropdownSelector: '#startAt'}"></datetimepicker>
                     </ul>
                 </div>
             </div>

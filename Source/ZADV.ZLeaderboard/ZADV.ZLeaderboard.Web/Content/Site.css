@@ -60,11 +60,15 @@ textarea {
         width: 100%;
     }
 
+    .email-form {
+        width: 100%;
+    }
+
     .btn-left {
-    float: right;
+        float: right;
+    }
 }
 
-}
 
 @media(min-width: 768px) {
     .navbar-toggle-style {
@@ -74,8 +78,13 @@ textarea {
     .event-form {
         width: 50%;
     }
+
+    .email-form {
+        width: 40%;
+    }
 }
 
+.email-form,
 .event-form {
     float: left;
 }

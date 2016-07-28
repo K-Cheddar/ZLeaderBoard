@@ -36,20 +36,21 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                 if (EventParticipants(singleEvent).Count > 0)
                 {
                     
-                    if (singleEvent.StartAt <= DateTime.Today.AddDays(1) && singleEvent.EndAt >= DateTime.Today)
+                    if (singleEvent.StartAt <= DateTime.Now && singleEvent.EndAt >= DateTime.Now)
                     {
                         model.ActiveEvents.Add(singleEvent);
                     }
-                    else if (singleEvent.StartAt > DateTime.Today)
+                    else if (singleEvent.StartAt > DateTime.Now)
                     {
                         model.UpcomingEvents.Add(singleEvent);
                     }
-                    else if (singleEvent.StartAt < DateTime.Today && singleEvent.EndAt < DateTime.Today)
+                    else if (singleEvent.StartAt < DateTime.Now && singleEvent.EndAt < DateTime.Now)
                     {
                         model.PastEvents.Add(singleEvent);
                     }
                 }
             }
+            model.PastEvents = model.PastEvents.OrderByDescending(t => t.StartAt).ToList();
 
             return model;
         }

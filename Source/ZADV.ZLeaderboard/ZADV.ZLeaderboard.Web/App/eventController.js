@@ -1,5 +1,5 @@
 ﻿angular.module('adminApp')
-  .controller('eventController', function ($scope, eventService, $stateParams, $location, $state) {
+  .controller('eventController', function ($scope, eventService, $stateParams, $location, $state, $filter) {
 
       $scope.model = {
           eventId: $stateParams.eventId,
@@ -16,6 +16,10 @@
           eventService.get($scope.model.eventId).success(function (event) {
               event.StartAt = new Date(event.StartAt);
               event.EndAt = new Date(event.EndAt);
+              //var _date = $filter('date')(new Date(event.StartAt), 'MMM dd, yyyy hh:mm a');
+              //event.StartAt = _date;
+              //var _date = $filter('date')(new Date(event.EndAt), 'MMM dd, yyyy hh:mm a');
+              //event.EndAt = _date;
               $scope.model.event = event;
               $scope.model.participants = event.Participants;
           }).error(function (err) {
@@ -23,6 +27,7 @@
           })
       }
       else {
+
           $scope.model.event.StartAt = new Date();
           $scope.model.event.EndAt = new Date();
           $scope.model.event.IsActive = true;

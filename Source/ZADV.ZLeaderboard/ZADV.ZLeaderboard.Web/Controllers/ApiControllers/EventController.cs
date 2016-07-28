@@ -58,8 +58,8 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             EventViewModel model = new EventViewModel()
             {
                 Name = currentEvent.Name,
-                EndAt = currentEvent.EndAt,
-                StartAt = currentEvent.StartAt,
+                EndAt = currentEvent.EndAt.ToUniversalTime(),
+                StartAt = currentEvent.StartAt.ToUniversalTime(),
                 IsActive = currentEvent.IsActive,
                 Description = currentEvent.Description
             };
@@ -91,8 +91,8 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                 Event newEvent = new Event()
                 {
                     Name = model.Name,
-                    StartAt = model.StartAt,
-                    EndAt = model.EndAt,
+                    StartAt = model.StartAt.ToLocalTime(),
+                    EndAt = model.EndAt.ToLocalTime(),
                     IsActive = model.IsActive,
                     Description = model.Description
                    
@@ -142,8 +142,8 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 
             Event editEvent = _eventRepository.Get(id);
             editEvent.Name = model.Name;
-            editEvent.StartAt = model.StartAt;
-            editEvent.EndAt = model.EndAt;
+            editEvent.StartAt = model.StartAt.ToLocalTime();
+            editEvent.EndAt = model.EndAt.ToLocalTime();
             editEvent.IsActive = model.IsActive;
             editEvent.Description = model.Description;
             _eventRepository.Update(editEvent);
