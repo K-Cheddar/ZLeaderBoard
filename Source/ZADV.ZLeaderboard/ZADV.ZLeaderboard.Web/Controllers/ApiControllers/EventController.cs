@@ -18,6 +18,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using ZADV.ZLeaderboard.Web.Security;
+using System.Drawing;
 
 namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 {
@@ -91,8 +92,8 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                 Event newEvent = new Event()
                 {
                     Name = model.Name,
-                    StartAt = model.StartAt.ToLocalTime(),
-                    EndAt = model.EndAt.ToLocalTime(),
+                    StartAt = model.StartAt,
+                    EndAt = model.EndAt,
                     IsActive = model.IsActive,
                     Description = model.Description
                    
@@ -142,8 +143,8 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 
             Event editEvent = _eventRepository.Get(id);
             editEvent.Name = model.Name;
-            editEvent.StartAt = model.StartAt.ToLocalTime();
-            editEvent.EndAt = model.EndAt.ToLocalTime();
+            editEvent.StartAt = model.StartAt;
+            editEvent.EndAt = model.EndAt;
             editEvent.IsActive = model.IsActive;
             editEvent.Description = model.Description;
             _eventRepository.Update(editEvent);
@@ -174,13 +175,28 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 
         private void AddParticipants(EventViewModel model, Event editEvent)
         {
+            List<Color> colors = createColors();
+            Random rand = new Random();
+            int randColor;
+
             foreach (var participant in model.Participants)
             {
+                randColor = (rand.Next(0, colors.Count - 1));
                 var newparticipant = new Participant()
                 {
                     Event = editEvent,
                     Name = participant.Name,
+                    Color = colors[randColor]
                 };
+
+                if(colors.Count > 0)
+                {
+                    colors.RemoveAt(randColor);
+                }
+                else
+                {
+                    colors = createColors();
+                }
 
                 //newparticipant.ImageId = SaveImage(participant.ImageFile);
                 _participantRepository.Add(newparticipant);
@@ -201,11 +217,29 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             }
             return eventParticipants;
         }
+        
+        private List<Color> createColors()
+        {
+            List<Color> colors = new List<Color>() {
+                ColorTranslator.FromHtml("#EC1818"),
+                ColorTranslator.FromHtml("#FF8B00"),
+                ColorTranslator.FromHtml("#FBFF00"),
+                ColorTranslator.FromHtml("#74FF00"),
+                ColorTranslator.FromHtml("#00FF55"),
+                ColorTranslator.FromHtml("#00D1FF"),
+                ColorTranslator.FromHtml("#000CFF"),
+                ColorTranslator.FromHtml("#C100FF"),
+                ColorTranslator.FromHtml("#FF00AA"),
+                ColorTranslator.FromHtml("#FF0049")
+            };
+
+            return colors;
+        } 
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
         }
 
-
+        
     }
 }

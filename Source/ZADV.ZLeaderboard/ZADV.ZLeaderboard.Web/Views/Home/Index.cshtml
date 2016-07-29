@@ -9,12 +9,14 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a ng-if="model.authenticated" href="" ng-click="logout()">Logout </a></li>
                     <li><a ng-if="model.authenticated" ui-sref="main">Admin Home  </a></li>
                     <li><a ng-if="model.authenticated" ui-sref="eventCreate">Create Event</a></li>
                     <li><a ng-if="model.authenticated" ui-sref="userHome">User Home </a></li>
                     <li><a ng-if="!model.authenticated" ui-sref="adminLogin">Admin Login </a></li>
                     <li><a ng-if="!model.authenticated" ui-sref="userHome">Home</a></li>
+                </ul>
+                <ul class="nav navbar-nav logout">
+                    <li><a ng-if="model.authenticated" href="" ng-click="logout()">Logout </a></li>
                 </ul>
             </div>
         </div>

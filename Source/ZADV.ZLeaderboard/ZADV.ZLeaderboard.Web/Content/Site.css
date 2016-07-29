@@ -20,6 +20,10 @@ textarea {
     max-width: none;
 }
 
+.background{
+    background-color: #2d3236;
+}
+
 .card {
     padding: 5px;
     text-align: center;
@@ -79,8 +83,13 @@ textarea {
         width: 50%;
     }
 
+    
     .email-form {
         width: 40%;
+    }
+
+    .logout{
+        float: right;
     }
 }
 
@@ -164,5 +173,7 @@ a {
 
 .winner {
     border: solid 3px;
+    display: inline;
     font-size: 20px;
+    padding: 5px;
 }

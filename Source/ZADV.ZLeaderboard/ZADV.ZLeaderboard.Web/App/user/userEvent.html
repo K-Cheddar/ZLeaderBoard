@@ -22,7 +22,7 @@
             <td>{{participant.VoteCount}}</td>
             <td ng-if="model.voteAllowed">
                 <a href="" class="btn" ng-disabled="!model.email" ng-click="vote(participant)">
-                    <i style="color:black" class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
+                    <i style="color:black" class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
                 </a>
         </tr>
     </table>
@@ -48,7 +48,7 @@
                 <!--<th ng-if="model.voteAllowed"> </th>-->
                 <th> </th>
             </tr>
-            <tr ng-repeat="participant in model.event.Participants | orderBy:'-VoteCount'">
+            <tr ng-repeat="participant in model.participants | orderBy:'-VoteCount'">
                 <td >{{participant.Name}}</td>
                 <!--<td ng-if="model.voteAllowed">
                     <a href="" class="" ng-disabled="!model.email" ng-click="vote(participant)">

@@ -1,0 +1,27 @@
+﻿<div class="container">
+    <h3>Congrautlations!</h3>
+    <div class="winner">{{model.event.Winners}}</div><br /><br />
+    {{model.event.Description}}
+    <br /><br />
+    <table class="progress-table">
+        <tr>
+            <th>Name </th>
+            <th> </th>
+        </tr>
+        <tr ng-repeat="participant in model.event.Participants | orderBy:'-VoteCount'">
+            <td>{{participant.Name}}</td>
+            <td class="vote-bar">
+                <div class="progress-bar" 
+                     style="width:{{getPercent(participant.VoteCount)}}%">
+                <p>{{participant.VoteCount}}</p></div>
+                <div ng-if="participant.VoteCount==0" class="progress-bar" 
+                     style="width:8%; background-color: black;"><p>{{participant.VoteCount}}</p></div>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <a href="#userHome" class="btn btn-primary" style="float: left">Back</a>
+</div>
+<div class="container">
+
+</div> 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -35,7 +36,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             {
                 if (EventParticipants(singleEvent).Count > 0)
                 {
-                    
+
                     if (singleEvent.StartAt <= DateTime.Now && singleEvent.EndAt >= DateTime.Now)
                     {
                         model.ActiveEvents.Add(singleEvent);
@@ -60,6 +61,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             IList<Participant> participants = EventParticipants(_eventRepository.Get(id)).OrderBy(p => p.Name).ToList();
             List<ParticipantViewModel> winners = new List<ParticipantViewModel>();
             List<string> winnerNames = new List<string>();
+
             int voteCount = 0, max = 0;
 
             UserEventViewModel model = new UserEventViewModel()
@@ -72,13 +74,15 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             foreach (var participant in participants)
             {
                 //vote count gets the number of participants from the list equal to this one
-                voteCount = _voterRepository.GetAll().Where(p => p.Participant.Id == participant.Id).Count();
-
+                voteCount = _voterRepository.GetAll()
+                    .Where(p => p.Participant.Id == participant.Id)
+                    .Count();
                 ParticipantViewModel part = new ParticipantViewModel()
                 {
                     Name = participant.Name,
                     Id = participant.Id,
-                    VoteCount = voteCount
+                    VoteCount = voteCount,
+                    Color = participant.Color
                 };
                 if (voteCount > max)
                 {
@@ -98,7 +102,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             //    max = participant.VoteCount;
 
             //}
-            foreach(var winner in winners)
+            foreach (var winner in winners)
             {
                 winnerNames.Add(winner.Name);
             }

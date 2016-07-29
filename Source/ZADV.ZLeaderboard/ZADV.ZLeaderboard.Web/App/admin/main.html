@@ -1,4 +1,5 @@
-﻿<div class="container">
+﻿
+<div class="container">
     <h1>Events</h1>
     <a ui-sref="eventCreate" class="btn btn-primary"> Create Event</a>
     <br />
@@ -13,7 +14,7 @@
         <tr class="hover" ui-sref="eventEdit({eventId: event.Id})" ng-repeat="event in model.events">
             <td colspan="1" ng-if="event.IsActive"><i class="fa fa-dot-circle-o eActive" aria-hidden="true"></i></td>
             <td colspan="1" ng-if="!event.IsActive"><i class="fa fa-dot-circle-o eInactive" aria-hidden="true"></i></td>
-            <td>{{event.Name | characters:30: false}}</td>
+            <td >{{event.Name | characters:30: false}}</td>
             <td>{{event.StartAt | date:'short'}}</td>
             <td>{{event.EndAt | date:'short'}}</td>
             <!--<td>{{event.IsActive == true ? "Active" : "Not Active"}}</td>-->

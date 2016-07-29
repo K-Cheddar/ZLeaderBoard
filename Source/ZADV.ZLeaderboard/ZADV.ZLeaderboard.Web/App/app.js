@@ -11,12 +11,12 @@
     $stateProvider
       .state('main', {
           url: "/main",
-          templateUrl: "/App/main.html",
+          templateUrl: "/App/admin/main.html",
           controller: "mainController"
       })
       .state('eventCreate', {
           url: "/eventCreate/",
-          templateUrl: "/App/event.html",
+          templateUrl: "/App/admin/event.html",
           controller: "eventController",
           data: {
               createEvent: true
@@ -24,7 +24,7 @@
       })
         .state('eventEdit', {
             url: "/eventEdit/:eventId",
-            templateUrl: "/App/event.html",
+            templateUrl: "/App/admin/event.html",
             controller: "eventController",
             data: {
                 createEvent: false
@@ -32,12 +32,12 @@
         })
     .state('userHome', {
         url: "/userHome",
-        templateUrl: "/App/userHome.html",
+        templateUrl: "/App/user/userHome.html",
         controller: "userHomeController"
     })
     .state('userEventView', {
         url: "/userEventView/:eventId",
-        templateUrl: "/App/userEvent.html",
+        templateUrl: "/App/user/userEvent.html",
         controller: "userEventController",
         data: {
             showButton: false
@@ -45,7 +45,7 @@
     })
     .state('eventWinner', {
         url: "/eventWinner/:eventId",
-        templateUrl: "/App/eventWinner.html",
+        templateUrl: "/App/user/eventWinner.html",
         controller: "userEventController",
         data: {
             showButton: true
@@ -53,7 +53,7 @@
     })
     .state('userEventVote', {
         url: "/userEventVote/:eventId",
-        templateUrl: "/App/userEvent.html",
+        templateUrl: "/App/user/userEvent.html",
         controller: "userEventController",
         data: {
             showButton: true
@@ -61,7 +61,7 @@
     })
     .state('adminLogin', {
         url: "/adminLogin",
-        templateUrl: "/App/adminLogin.html",
+        templateUrl: "/App/admin/adminLogin.html",
         controller: "adminLoginController"
     })
 

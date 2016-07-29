@@ -8,7 +8,8 @@
           cookieTest: $cookies.get('user'),
           eventId: $stateParams.eventId,
           voteAllowed: $state.current.data.showButton,
-          alreadyVoted: false
+          alreadyVoted: false,
+          participants: {}
       };
 
       if (!$scope.model.voteAllowed) {
@@ -19,7 +20,15 @@
           if ($scope.model.eventId) {
               userEventService.get($scope.model.eventId).success(function (event) {
                   $scope.model.event = event;
-                  $scope.model.participants = event.Participants;
+                  if ($scope.model.participants.length == $scope.model.event.Participants.length) {
+                      for (var i = 0; i < $scope.model.participants.length; i++) {
+                          $scope.model.participants[i].VoteCount
+                              = $scope.model.event.Participants[i].VoteCount;
+                      }
+                  }
+                  else {
+                      $scope.model.participants = event.Participants;
+                  }
               }).error(function (err) {
                   alert("Error");
               })
@@ -32,7 +41,6 @@
       $scope.saveEmail = function () {
           $cookies.put('user', $scope.model.emailTmp);
           $scope.model.email = $scope.model.emailTmp;
-
       }
 
       $scope.vote = function (participant) {
@@ -51,7 +59,7 @@
 
       $scope.getTotal = function () {
           var total = 0;
-          for (var i = 0; i < $scope.model.participants.length; i++){
+          for (var i = 0; i < $scope.model.participants.length; i++) {
               var count = $scope.model.participants[i];
               total += count.VoteCount;
           }
@@ -70,6 +78,6 @@
       }
 
       $scope.getPercent = function (voteCount) {
-          return (voteCount / $scope.getMax())*100;
+          return (voteCount / $scope.getMax()) * 100;
       }
   });

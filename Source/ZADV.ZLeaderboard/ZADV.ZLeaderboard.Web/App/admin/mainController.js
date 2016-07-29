@@ -1,5 +1,5 @@
 ﻿angular.module('adminApp')
-  .controller('mainController', function ($scope, eventService) {
+  .controller('mainController', function ($scope, eventService, $state) {
 
       $scope.model = {
           name: "",
@@ -7,10 +7,19 @@
           event: undefined
       };
 
+
+      var init = function () {
+          if (!$scope.$parent.model.authenticated) {
+              $state.go("userHome");
+          }
+      }
+
+      init();
+
       eventService.all().success(function (events) {
           $scope.model.events = events;
       }).error(function (err) {
-          alert("Error");
+          //alert("Error");
       })
 
       $scope.editEvent = function (eventId) {

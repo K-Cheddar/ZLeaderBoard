@@ -99,6 +99,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ZADV.ZLeaderboard.Domain\ZADV.ZLeaderboard.Domain\ZADV.ZLeaderboard.Domain.csproj">
+      <Project>{4e4fb9f8-a2ca-49f9-baad-9c8d114ee9ba}</Project>
+      <Name>ZADV.ZLeaderboard.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Migrations\201607081923356_InitialTables.resx">
       <DependentUpon>201607081923356_InitialTables.cs</DependentUpon>
     </EmbeddedResource>
@@ -114,12 +120,6 @@
     <EmbeddedResource Include="Migrations\201607252133572_EventDesNo.resx">
       <DependentUpon>201607252133572_EventDesNo.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ZADV.ZLeaderboard.Domain\ZADV.ZLeaderboard.Domain\ZADV.ZLeaderboard.Domain.csproj">
-      <Project>{4e4fb9f8-a2ca-49f9-baad-9c8d114ee9ba}</Project>
-      <Name>ZADV.ZLeaderboard.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
