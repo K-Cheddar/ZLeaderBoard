@@ -50,7 +50,7 @@
               $scope.model.event = event;
               $scope.model.participants = event.Participants;
           }).error(function (err) {
-              alert("Error");
+              alert("You don't have access to that.");
           })
       }
       else {
@@ -86,7 +86,7 @@
                   $location.path("/main");
 
               }).error(function (err) {
-                  alert("Error");
+                  alert("You don't have access to that.");
               })
           }
           else {
@@ -95,7 +95,7 @@
                   $location.path("/main");
 
               }).error(function (err) {
-                  alert("Error");
+                  alert("You don't have access to that.");
               })
           }
 
@@ -129,12 +129,12 @@
           else {
               $scope.model.datesValid = true;
           }
-          if (s.getTime() < c.getTime()) {
-              $scope.model.startDateTooEarly = true;
-          }
-          else {
-              $scope.model.startDateTooEarly = false;
-          }
+          //if (s.getTime() < c.getTime()) {
+          //    $scope.model.startDateTooEarly = true;
+          //}
+          //else {
+          //    $scope.model.startDateTooEarly = false;
+          //}
           if ( e.getTime() < c.getTime()) {
               $scope.model.endDateTooEarly = true;
           }

@@ -30,7 +30,4 @@
           
       };
 
-      $scope.message = function () {
-          return "Hello " + ($scope.model.name || "");
-      }
   });

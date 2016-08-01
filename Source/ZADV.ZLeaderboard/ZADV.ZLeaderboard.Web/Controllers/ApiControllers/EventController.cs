@@ -186,7 +186,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                 {
                     Event = editEvent,
                     Name = participant.Name,
-                    Color = colors[randColor]
+                    Color = colors[randColor].ToString()
                 };
 
                 if(colors.Count > 0)

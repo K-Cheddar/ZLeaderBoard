@@ -82,7 +82,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                     Name = participant.Name,
                     Id = participant.Id,
                     VoteCount = voteCount,
-                    Color = participant.Color
+                    Color = ColorTranslator.FromHtml(participant.Color)
                 };
                 if (voteCount > max)
                 {

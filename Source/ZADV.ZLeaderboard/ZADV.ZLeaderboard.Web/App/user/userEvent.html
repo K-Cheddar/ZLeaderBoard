@@ -52,9 +52,9 @@
     <br />
     <table class="progress-table">
         <tr>
-            <th>Name </th>
+            <th><p>Name</p></th>
             <!--<th ng-if="model.voteAllowed"> </th>-->
-            <th> </th>
+            <th><p>Votes</p> </th>
         </tr>
         <tr ng-repeat="participant in model.participants | orderBy:'-VoteCount'">
             <td class="row-data"><div>{{participant.Name}}</div></td>

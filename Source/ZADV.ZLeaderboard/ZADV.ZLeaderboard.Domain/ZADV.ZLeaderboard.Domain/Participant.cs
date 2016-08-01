@@ -16,7 +16,7 @@ namespace Zadv.ZLeaderboard.Domain
 
         public Guid ImageId { get; set; }
 
-        public Color Color { get; set; }
+        public string Color { get; set; }
 
         public virtual Event Event { get; set; }
     }
