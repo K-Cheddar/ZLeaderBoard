@@ -265,6 +265,7 @@
     <Content Include="App\vendors\datetimepicker.templates.js" />
     <Content Include="App\vendors\moment.js" />
     <Content Include="App\vendors\truncate.js" />
+    <Content Include="App_Data\Images\zLeaderboard-logo_03.jpg" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

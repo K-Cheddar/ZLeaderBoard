@@ -1,4 +1,5 @@
-﻿body {
+﻿
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -16,12 +17,40 @@ textarea {
     max-width: 280px;
 }*/
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: Oswald;
+}
+
+h2, h4, td {
+    color: #d8dde1;
+}
+
+h3 {
+    font-size: 22px;
+    color: #d9dadb;
+}
+
+p {
+    color: #fdfdfd;
+    max-width: 95%;
+    font-size: 15px;
+}
+
+p, div {
+    font-family: Oswald;
+}
+
 .dateinput {
     max-width: none;
 }
 
-.background{
+.background {
     background-color: #2d3236;
+    max-width: 100%;
+}
+
+.body-background {
+    background-color: #353c42;
 }
 
 .card {
@@ -30,16 +59,18 @@ textarea {
 }
 
 .card-block {
-    border: solid 3px #000;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    background-color: #6f7479;
     box-sizing: border-box;
+    border-radius: 15px;
     padding: 10px;
 }
 
 .card-title {
-    border-bottom: solid 2px;
     padding: 5px;
+}
+
+.nav-btn {
+    max-width: 100%;
 }
 
 .btn {
@@ -60,37 +91,106 @@ textarea {
         max-width: 80%;
     }
 
-    .event-form {
+    .progress-table, .vote-table, .winner, .event-form, .email-form {
         width: 100%;
     }
 
-    .email-form {
-        width: 100%;
+    .table, table-hover {
+        min-width: 100%;
+        max-width: 100%;
+        padding: 1px;
+        margin: 1px;
+    }
+
+    .cards {
+        max-width: 100%;
+        min-width: 100%;
+    }
+
+    .body-background, .container {
+        margin: 0px;
+        padding: 2px;
+        border-radius: 15px;
+        max-width: 100%;
     }
 
     .btn-left {
         float: right;
     }
+
+    .logo {
+        max-height: 250%;
+        position: relative;
+        top: -15px;
+    }
+
+    .desktop {
+        display: none;
+    }
 }
 
+@media(max-width: 342px) {
+    .body-background {
+        margin-top: 30px;
+    }
+}
 
-@media(min-width: 768px) {
+@media(min-width: 566px) and (max-width: 767px) {
+
+    .card {
+        width: 50%;
+    }
+
+    .vote-bar, .progress-table, .vote-table {
+        width: 100%;
+    }
+}
+
+@media(min-width: 769px) {
+
     .navbar-toggle-style {
         display: none;
     }
 
-    .event-form {
+    .vote-table, .progress-table, .winner, .event-form {
         width: 50%;
     }
 
-    
+    .logo {
+        max-height: 300%;
+        position: relative;
+        top: -15px;
+    }
+
+    .table {
+        max-width: 92%;
+    }
+
     .email-form {
         width: 40%;
     }
 
-    .logout{
+    .logout {
         float: right;
     }
+
+    .body-background {
+        margin: 15px;
+        padding: 10px;
+        border-radius: 15px;
+    }
+
+    .mobile {
+        display: none;
+    }
+
+    .vote-table {
+        width: 50%;
+    }
+}
+
+.cards {
+    width: 85%;
 }
 
 .email-form,
@@ -107,26 +207,36 @@ a {
     color: black;
 }
 
-    a:hover {
+    li, a:hover {
         color: #ed1c24;
     }
 
 .eActive {
-    color: green;
+    color: #00ff1e;
 }
 
 .eInactive {
     color: red;
 }
 
+.edit {
+    color: #0078ff;
+}
+
 .description {
     width: 100%;
     height: 30px;
     font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.card-body {
+    border-bottom: solid 1px;
+    border-color: #7e8286;
 }
 
 .vote-bar {
-    width: 80%;
+    width: 85%;
     height: 20px;
     margin-bottom: 20px;
     overflow: hidden;
@@ -138,25 +248,56 @@ a {
 
 .progress-table {
     max-width: 100%;
+    line-height: normal;
     background-color: transparent;
+    border-collapse: separate;
+    border-spacing: 10px 3px;
+    color: #C3C4C5;
+}
+
+.vote-table {
+    text-align: center;
+    max-width: 100%;
+    background-color: #2d3236;
+    border-radius: 20px;
     border-collapse: separate;
     border-spacing: 10px 3px;
 }
 
-.vote-table {
-    max-width: 100%;
-    background-color: transparent;
-    border-collapse: separate;
-    border-spacing: 10px 3px;
+.row-data{
+    font-size: 18px;
 }
+
+.vote-button {
+    background-color: #1080b6;
+    border-radius: 15px;
+}
+
+    .vote-button:hover {
+        background-color: #4792b6;
+    }
+
+    .vote-button:active {
+        background-color: #0de0e5;
+    }
 
 .hover {
     cursor: pointer;
 }
 
 .navbar-style {
-    border-color: #ed1c24;
-    background-color: gray;
+    border-color: #2d3236;
+    background-color: #4a545d;
+}
+
+.lowerbar {
+    border-color: #2d3236;
+    background-color: white;
+    width: 100%;
+    z-index: 10000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
 
 .navbar-toggle-style {
@@ -173,7 +314,24 @@ a {
 
 .winner {
     border: solid 3px;
-    display: inline;
+    border-radius: 15px;
+    border-color: #ed1c24;
     font-size: 20px;
-    padding: 5px;
+    padding: 10px;
+    color: gold;
+    text-align: center;
+    margin: auto;
 }
+
+.table {
+    max-width: 92%;
+}
+
+.navbar-nav > li > a:hover, .navbar-nav > li > a:focus {
+    background-color: #2c2667;
+}
+
+/*.logo:hover{
+    border-radius: 30px;
+    border-color: #2d3236; 
+}*/

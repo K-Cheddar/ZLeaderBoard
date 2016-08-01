@@ -13,7 +13,9 @@
           submitValid: true,
           datesValid: true,
           startDateTooEarly: false,
-          endDateTooEarly: false
+          endDateTooEarly: false,
+          incorrectStartDateFormat: false,
+          incorrectEndDateFormat: false,
           //participantImage: undefined
       };
 
@@ -138,6 +140,18 @@
           }
           else {
               $scope.model.endDateTooEarly = false;
+          }
+          if (s.toString() == "Invalid Date") {
+              $scope.model.incorrectStartDateFormat = true;
+          }
+          else {
+              $scope.model.incorrectStartDateFormat = false;
+          }
+          if (e.toString() == "Invalid Date") {
+              $scope.model.incorrectEndDateFormat = true;
+          }
+          else {
+              $scope.model.incorrectEndDateFormat = false;
           }
       }
 

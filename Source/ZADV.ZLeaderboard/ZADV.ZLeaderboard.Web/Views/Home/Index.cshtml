@@ -4,22 +4,41 @@
     <nav class="navbar navbar-style navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <i class="fa fa-bars navbar-toggle-style hover" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" aria-hidden="true"></i>
-                <a class="navbar-brand" href="#">zLeaderboard</a>
+                <i class="fa fa-bars navbar-toggle-style hover" data-toggle="collapse" data-target="#navbar2" aria-expanded="false" aria-controls="navbar" aria-hidden="true"></i>
+                <a class="navbar-brand" href="#"><img class="logo" src="http://i.imgur.com/h07COlv.jpg" /></a>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a ng-if="model.authenticated" ui-sref="main">Admin Home  </a></li>
-                    <li><a ng-if="model.authenticated" ui-sref="eventCreate">Create Event</a></li>
-                    <li><a ng-if="model.authenticated" ui-sref="userHome">User Home </a></li>
-                    <li><a ng-if="!model.authenticated" ui-sref="adminLogin">Admin Login </a></li>
-                    <li><a ng-if="!model.authenticated" ui-sref="userHome">Home</a></li>
-                </ul>
-                <ul class="nav navbar-nav logout">
-                    <li><a ng-if="model.authenticated" href="" ng-click="logout()">Logout </a></li>
-                </ul>
+            <div class="desktop">
+                <div id="navbar1" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a ng-if="model.authenticated" ui-sref="main"><p class="nav-btn">Admin Home</p></a></li>
+                        <li><a ng-if="model.authenticated" ui-sref="eventCreate"><p class="nav-btn">Create Event</p></a></li>
+                        <li><a ng-if="model.authenticated" ui-sref="userHome"><p class="nav-btn">User Home</p> </a></li>
+                        <li><a ng-if="!model.authenticated" ui-sref="adminLogin"><p class="nav-btn">Admin Login</p> </a></li>
+                        <li><a ng-if="!model.authenticated" ui-sref="userHome"><p class="nav-btn">Home</p></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav logout">
+                        <li><a ng-if="model.authenticated" href="" ng-click="logout()"><p>Logout</p> </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mobile">
+                <div id="navbar2" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a data-toggle="collapse" data-target="#navbar2" ng-if="model.authenticated" ui-sref="main"><p class="nav-btn">Admin Home</p></a></li>
+                        <li><a data-toggle="collapse" data-target="#navbar2" ng-if="model.authenticated" ui-sref="eventCreate"><p class="nav-btn">Create Event</p></a></li>
+                        <li><a data-toggle="collapse" data-target="#navbar2" ng-if="model.authenticated" ui-sref="userHome"><p class="nav-btn">User Home</p> </a></li>
+                        <li><a data-toggle="collapse" data-target="#navbar2" ng-if="!model.authenticated" ui-sref="adminLogin"><p class="nav-btn">Admin Login</p> </a></li>
+                        <li><a data-toggle="collapse" data-target="#navbar2" ng-if="!model.authenticated" ui-sref="userHome"><p class="nav-btn">Home</p></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav logout">
+                        <li><a data-toggle="collapse" data-target="#navbar" ng-if="model.authenticated" href="" ng-click="logout()"><p>Logout</p> </a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
-    <div ui-view></div>
+    <div class="body-background" ui-view></div>
+    <div class="lowerbar">
+    </div>
 </div>
+

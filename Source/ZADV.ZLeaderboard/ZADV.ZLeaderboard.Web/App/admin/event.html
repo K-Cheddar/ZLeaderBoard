@@ -1,107 +1,114 @@
-﻿<div class="container event-form">
-    <h2 ng-if="model.createEvent">Create Event</h2>
-    <h2 ng-if="!model.createEvent">Edit Event</h2>
-    <button ng-disabled="eventForm.$invalid || !model.submitValid || !model.datesValid || model.endDateTooEarly || model.startDateTooEarly"
-            type="button" class="btn btn-primary btn-right" ng-click="save()">
-        Save
-    </button>
-    <form name="eventForm">
-        <div class="form-group">
-            <label for="eventName">Event Name *</label>
-            <input type="text" class="form-control" name="eventName" id="eventName" placeholder="Name"
-                   ng-click="clicked('eventName')" ng-model="model.event.Name" required />
-            <small ng-if="eventForm.eventName.$invalid && model.eventNameClicked" style="color:red">Name is required</small>
-        </div>
-        <div class="form-group">
-            <label for="startAt">Start *</label>
-            <!--<input type="datetime-local" class="form-control" name="startAt" id="startAt" ng-model="model.event.StartAt" required />-->
-            <div class="">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" id="startAt" role="button" data-toggle="dropdown">
-                        <div class="input-group data">
-                            <input type="text" ng-change="timeValidate()" class="form-control dateinput" name="startAt" data-ng-model="model.event.StartAt" required>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="model.event.StartAt"
-                                        data-datetimepicker-config="{ dropdownSelector: '#startAt'}"
-                                        data-on-set-time="onTimeSet('s')"
-                                        data-before-render="beforeRender('s')">
-                        </datetimepicker>
-                    </ul>
-                </div>
+﻿<div class="container">
+    <div class="event-form">
+        <h2 ng-if="model.createEvent">Create Event</h2>
+        <h2 ng-if="!model.createEvent">Edit Event</h2>
+        <button ng-disabled="eventForm.$invalid || !model.submitValid || !model.datesValid || model.endDateTooEarly || model.startDateTooEarly
+                || model.incorrectStartDateFormat || model.incorrectEndDateFormat"
+                type="button" class="btn btn-default btn-right" ng-click="save()">
+            Save
+        </button>
+        <a href="#main" class="btn btn-danger btn-left">Cancel</a><br /><br /><br />
+        <form name="eventForm">
+            <div class="form-group">
+                <p for="eventName">Event Name *</p>
+                <input type="text" class="form-control" name="eventName" id="eventName" placeholder="Name"
+                       ng-click="clicked('eventName')" ng-model="model.event.Name" required />
+                <small ng-if="eventForm.eventName.$invalid && model.eventNameClicked" style="color:red">Name is required</small>
             </div>
-            <small ng-if="!model.datesValid" style="color:red">End Date must be later than Start Date<br /></small>
-            <small ng-if="model.startDateTooEarly" style="color:red">Start Date cannot be set in the past</small>
-        </div>
-        <div class="form-group">
-            <label for="endAt">End *</label>
-            <div class="">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" name="endAt" id="endAt" role="button" data-toggle="dropdown">
-                        <div class="input-group data">
-                            <input type="text" ng-change="timeValidate()" class="form-control dateinput" name="endAt" data-ng-model="model.event.EndAt" required>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="model.event.EndAt"
-                                        data-datetimepicker-config="{ dropdownSelector: '#endAt' }"
-                                        data-on-set-time="onTimeSet('e')"
-                                        data-before-render="beforeRender('e')">
-                        </datetimepicker>
-                    </ul>
+            <div class="form-group">
+                <p for="startAt">Start *</p>
+                <!--<input type="datetime-local" class="form-control" name="startAt" id="startAt" ng-model="model.event.StartAt" required />-->
+                <div class="test">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" id="startAt" role="button" data-toggle="dropdown">
+                            <div class="input-group data">
+                                <input type="text" ng-change="timeValidate()" class="form-control dateinput" name="startAt" data-ng-model="model.event.StartAt" required>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="model.event.StartAt"
+                                            data-datetimepicker-config="{ dropdownSelector: '#startAt'}"
+                                            data-on-set-time="onTimeSet('s')"
+                                            data-before-render="beforeRender('s')">
+                            </datetimepicker>
+                        </ul>
+                    </div>
                 </div>
+                <small ng-if="!model.datesValid" style="color:red">End Date must be later than Start Date<br /></small>
+                <small ng-if="model.startDateTooEarly" style="color:red">Start Date cannot be set in the past</small>
+                <small ng-if="model.incorrectStartDateFormat" style="color:red">Incorrect Date Format</small>
             </div>
-            <small ng-if="!model.datesValid" style="color:red">End Date must be later than Start Date<br /></small>
-            <small ng-if="model.endDateTooEarly" style="color:red">End Date cannot be set in the past</small>
-        </div>
-        <div class="form-group">
-            <label for="eventName">Event Description</label>
-            <textarea class="form-control" rows="5" name="eventDescription" placeholder="Optional description of event" ng-model="model.event.Description"></textarea>
-        </div>
-        <div>
-            <label class="hover" ng-click="ActiveBox()" for="isActive">Active</label>
-            <label class="hover">
-                <input type="checkbox" ng-model="model.event.IsActive" />
-            </label>
-        </div>
-    </form>
+            <div class="form-group">
+                <p for="endAt">End *</p>
+                <div class="">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" name="endAt" id="endAt" role="button" data-toggle="dropdown">
+                            <div class="input-group data">
+                                <input type="text" ng-change="timeValidate()" class="form-control dateinput" name="endAt" data-ng-model="model.event.EndAt" required>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="model.event.EndAt"
+                                            data-datetimepicker-config="{ dropdownSelector: '#endAt' }"
+                                            data-on-set-time="onTimeSet('e')"
+                                            data-before-render="beforeRender('e')">
+                            </datetimepicker>
+                        </ul>
+                    </div>
+                </div>
+                <small ng-if="!model.datesValid" style="color:red">End Date must be later than Start Date<br /></small>
+                <small ng-if="model.endDateTooEarly" style="color:red">End Date cannot be set in the past</small>
+                <small ng-if="model.incorrectEndDateFormat" style="color:red">Incorrect Date Format</small>
+            </div>
+            <div class="form-group">
+                <p for="eventName">Event Description</p>
+                <textarea class="form-control" rows="5" name="eventDescription" placeholder="Optional description of event" ng-model="model.event.Description"></textarea>
+            </div>
+            <div>
+                <p class="hover" ng-click="ActiveBox()" for="isActive">Active</p>
+                <label class="hover">
+                    <input type="checkbox" ng-model="model.event.IsActive" />
+                </label>
+            </div>
+        </form>
 
-    <br />
-    <h3>Add Participant</h3>
+        <br />
+        <h3>Add Participant</h3>
 
 
-    <form name="participantForm" ng-submit="addParticipant()">
-        <div class="form-group">
-            <label for="participantName">Participant Name *</label>
-            <input type="text" class="form-control" name="participantName" id="participantName" placeholder="Name"
-                   ng-model="model.participantName" ng-click="clicked('participant')" required />
-            <small ng-if="participantForm.participantName.$invalid && model.participantClicked" style="color:red">Name is required</small>
-        </div>
-        <!--<div class="form-group">
-            <label for="imageFile">Image</label>
-            <input type="file" id="imageFile" ng-model="model.participantImage" flow-btn>
-            <p class="help-block">Upload a participant image here</p>
-        </div>-->
-        <button ng-disabled="participantForm.$invalid" type="submit" class="btn btn-primary btn-smx">Add</button>
-    </form>
+        <form name="participantForm" ng-submit="addParticipant()">
+            <div class="form-group">
+                <p for="participantName">Participant Name *</p>
+                <input type="text" class="form-control" name="participantName" id="participantName" placeholder="Name"
+                       ng-model="model.participantName" ng-click="clicked('participant')" required />
+                <small ng-if="participantForm.participantName.$invalid && model.participantClicked" style="color:red">Name is required</small>
+            </div>
+            <!--<div class="form-group">
+                <label for="imageFile">Image</label>
+                <input type="file" id="imageFile" ng-model="model.participantImage" flow-btn>
+                <p class="help-block">Upload a participant image here</p>
+            </div>-->
+            <button ng-disabled="participantForm.$invalid" type="submit" class="btn btn-default btn-smx">Add</button>
+        </form>
 
 
-    <br /><br />
-    <h4>Participants</h4>
-    <p ng-if="model.participants.length == 0"> No participants yet!</p>
-    <table class="table table-hover">
-        <tr ng-repeat="participant in model.participants">
-            <td height="40" width="50"><img id="pImage" style="max-width:70px; max-height: 100px" />{{$index +1}}.</td>
-            <td>{{participant.Name}}</td>
-            <td width="20"><a href="" ng-click="removeParticipant($index)" style="color:black"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a></td>
-        </tr>
-    </table>
-    <button ng-disabled="eventForm.$invalid || !model.submitValid || !model.datesValid || model.endDateTooEarly || model.startDateTooEarly"
-            type="button" class="btn btn-primary btn-right" ng-click="save()">
-        Save
-    </button>
-    <a href="#main" class="btn btn-danger btn-left">Cancel</a>
+        <br /><br />
+        <h4>Participants</h4>
+        <p ng-if="model.participants.length == 0"> No participants yet!</p>
+        <table class="table table-hover">
+            <tr ng-repeat="participant in model.participants">
+                <td height="40" width="50"><img id="pImage" style="max-width:70px; max-height: 100px" />{{$index +1}}.</td>
+                <td>{{participant.Name}}</td>
+                <td width="20"><a href="" ng-click="removeParticipant($index)" style="color:black"><i class="fa fa-times fa-lg" aria-hidden="true"></i></a></td>
+            </tr>
+        </table>
+        <button ng-disabled="eventForm.$invalid || !model.submitValid || !model.datesValid || model.endDateTooEarly || model.startDateTooEarly
+                || model.incorrectStartDateFormat || model.incorrectEndDateFormat"
+                type="button" class="btn btn-default btn-right" ng-click="save()">
+            Save
+        </button>
+        <a href="#main" class="btn btn-danger btn-left">Cancel</a>
+    </div>
 </div>
