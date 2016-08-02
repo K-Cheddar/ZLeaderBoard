@@ -1,7 +1,6 @@
 ﻿<div class="container">
-
     <div class="winner"><h2>Congrautlations!</h2>{{model.event.Winners}} <h4>Got the most votes!</h4></div><br /><br />
-    Event
+    <h3>{{model.event.Name}}</h3>
     <p>{{model.event.Description}}</p>
     <br /><br />
     <table class="progress-table" >
@@ -13,7 +12,7 @@
             <td><p>{{participant.Name}}</p></td>
             <td class="vote-bar">
                 <div class="progress-bar" 
-                     style="width:{{getPercent(participant.VoteCount)}}% background-color: {{participant.Color}}">
+                     style="width:{{getPercent(participant.VoteCount)}}%; background-color:{{participant.Color}}">
                 <p>{{participant.VoteCount}}</p></div>
                 <div ng-if="participant.VoteCount==0" class="progress-bar" 
                      style="width:8%;"><p>{{participant.VoteCount}}</p></div>
