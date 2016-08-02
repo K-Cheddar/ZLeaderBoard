@@ -77,13 +77,15 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                 voteCount = _voterRepository.GetAll()
                     .Where(p => p.Participant.Id == participant.Id)
                     .Count();
+
                 ParticipantViewModel part = new ParticipantViewModel()
                 {
                     Name = participant.Name,
                     Id = participant.Id,
                     VoteCount = voteCount,
-                    //Color = ColorTranslator.FromHtml(participant.Color)
+                    Color = participant.Color
                 };
+
                 if (voteCount > max)
                 {
                     max = voteCount;
@@ -97,11 +99,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                 model.Participants.Add(part);
             }
 
-            //foreach(var participant in model.Participants)
-            //{
-            //    max = participant.VoteCount;
 
-            //}
             foreach (var winner in winners)
             {
                 winnerNames.Add(winner.Name);
@@ -109,20 +107,6 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             model.Winners = string.Join(", ", winnerNames);
             return model;
         }
-
-        //public Participant GetWinner(int id)
-        //{
-        //    Participant participant = null;
-        //    IList<Participant> participants = EventParticipants(_eventRepository.Get(id));
-        //    foreach (var person in participants)
-        //    {
-        //        if (participant.VoteCount < person.VoteCount)
-        //        {
-        //            participant = person;
-        //        }
-        //    }
-        //    return participant;
-        //}
 
         public VotesViewModel Put(int id)
         {
@@ -191,12 +175,6 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             return response;
         }
 
-        //private Event InstantiateEvent(Event tempEvent, Event singleEvent)
-        //{
-
-        //    return tempEvent;
-        //}
-
         private IList<Participant> EventParticipants(Event currentEvent)
         {
             IList<Participant> participants = _participantRepository.GetAll();
@@ -210,5 +188,6 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             }
             return eventParticipants;
         }
+
     }
 }

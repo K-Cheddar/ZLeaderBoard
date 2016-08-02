@@ -13,7 +13,7 @@
             <td><p>{{participant.Name}}</p></td>
             <td class="vote-bar">
                 <div class="progress-bar" 
-                     style="width:{{getPercent(participant.VoteCount)}}%">
+                     style="width:{{getPercent(participant.VoteCount)}}% background-color: {{participant.Color}}">
                 <p>{{participant.VoteCount}}</p></div>
                 <div ng-if="participant.VoteCount==0" class="progress-bar" 
                      style="width:8%;"><p>{{participant.VoteCount}}</p></div>

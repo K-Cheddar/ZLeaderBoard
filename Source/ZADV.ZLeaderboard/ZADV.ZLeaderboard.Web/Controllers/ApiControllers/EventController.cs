@@ -39,7 +39,6 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 
         // GET api/<controller>
         [HttpGet]
-
         public IEnumerable<Event> Get()
         {
             IList<Event> currentEvents = _eventRepository.GetAll().Where(x => x.EndAt >= DateTime.Now).OrderByDescending(e => e.IsActive).ThenBy(d => d.StartAt).ToList();
@@ -96,13 +95,49 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                     EndAt = model.EndAt,
                     IsActive = model.IsActive,
                     Description = model.Description
-                   
+
                 };
                 _eventRepository.Add(newEvent);
                 AddParticipants(model, newEvent);
             }
         }
 
+        [HttpPut]
+        public void Put(int id, [FromBody] EventViewModel model)
+        {
+
+            Event editEvent = _eventRepository.Get(id);
+            editEvent.Name = model.Name;
+            editEvent.StartAt = model.StartAt;
+            editEvent.EndAt = model.EndAt;
+            editEvent.IsActive = model.IsActive;
+            editEvent.Description = model.Description;
+            _eventRepository.Update(editEvent);
+
+            IList<Participant> currentParticipants = EventParticipants(editEvent);
+            bool present;
+            foreach (var currentParticipant in currentParticipants)
+            {
+                present = false;
+                foreach (var participant in model.Participants)
+                {
+                    if (participant.Id == currentParticipant.Id)
+                    {
+                        present = true;
+                        model.Participants.Remove(participant);
+                        break;
+                    }
+                }
+
+                if (!present)
+                {
+                    
+                    _participantRepository.Remove(currentParticipant);
+                }
+
+            }
+            AddParticipants(model, editEvent);
+        }
 
         private Guid SaveImage(HttpPostedFileBase imageFile)
         {
@@ -132,50 +167,9 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             //throw new NotImplementedException();
         }
 
-        // PUT api/<controller>/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        [HttpPut]
-        public void Put(int id, [FromBody] EventViewModel model)
-        {
-
-            Event editEvent = _eventRepository.Get(id);
-            editEvent.Name = model.Name;
-            editEvent.StartAt = model.StartAt;
-            editEvent.EndAt = model.EndAt;
-            editEvent.IsActive = model.IsActive;
-            editEvent.Description = model.Description;
-            _eventRepository.Update(editEvent);
-
-            IList<Participant> currentParticipants = EventParticipants(editEvent);
-            bool present;
-            foreach (var currentParticipant in currentParticipants)
-            {
-                present = false;
-                foreach (var participant in model.Participants)
-                {
-                    if (participant.Id == currentParticipant.Id)
-                    {
-                        present = true;
-                        model.Participants.Remove(participant);
-                        break;
-                    }
-                }
-
-                if(!present)
-                {
-                    _participantRepository.Remove(currentParticipant);
-                }
-
-            }
-            AddParticipants(model, editEvent);
-        }
-
         private void AddParticipants(EventViewModel model, Event editEvent)
         {
-            List<Color> colors = createColors();
+            List<string> colors = createColors();
             Random rand = new Random();
             int randColor;
 
@@ -186,10 +180,10 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                 {
                     Event = editEvent,
                     Name = participant.Name,
-                    Color = colors[randColor].ToString()
+                    Color = colors[randColor]
                 };
 
-                if(colors.Count > 0)
+                if (colors.Count > 1)
                 {
                     colors.RemoveAt(randColor);
                 }
@@ -217,29 +211,29 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             }
             return eventParticipants;
         }
-        
-        private List<Color> createColors()
+
+        private List<string> createColors()
         {
-            List<Color> colors = new List<Color>() {
-                ColorTranslator.FromHtml("#EC1818"),
-                ColorTranslator.FromHtml("#FF8B00"),
-                ColorTranslator.FromHtml("#FBFF00"),
-                ColorTranslator.FromHtml("#74FF00"),
-                ColorTranslator.FromHtml("#00FF55"),
-                ColorTranslator.FromHtml("#00D1FF"),
-                ColorTranslator.FromHtml("#000CFF"),
-                ColorTranslator.FromHtml("#C100FF"),
-                ColorTranslator.FromHtml("#FF00AA"),
-                ColorTranslator.FromHtml("#FF0049")
+            List<string> colors = new List<string>()
+            {
+                "#20C3B3",
+                "#D20101",
+                "#C12091",
+                "#E57400",
+                "#6CC900",
+                "#0404D4",
+                "#5C0AFF",
+                "#0C9800",
+                "#1B0092"
             };
 
             return colors;
-        } 
+        }
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
         }
 
-        
+
     }
 }

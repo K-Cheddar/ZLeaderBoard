@@ -10,6 +10,10 @@ body {
     padding-right: 15px;
 }
 
+td{
+    font-weight: 500;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 /*input,
 select,
@@ -36,7 +40,7 @@ p {
     font-size: 16px;
 }
 
-p, div {
+p {
     font-family: Oswald;
 }
 
@@ -71,10 +75,13 @@ p, div {
 
 .nav-btn {
     max-width: 100%;
+    font-family: Oswald;
+    color: white;
 }
 
 .btn {
     margin: 10px;
+    font-family: Oswald;
 }
 
 .btn-left {
@@ -89,6 +96,10 @@ p, div {
     .btn {
         padding: 10px 41px;
         max-width: 80%;
+    }
+
+    .progress-height{
+        line-height: 30px;
     }
 
     .progress-table, .vote-table, .winner, .event-form, .email-form {
@@ -129,11 +140,18 @@ p, div {
     }
 }
 
-@media(max-width: 342px) {
+/*@media(max-width: 342px) {
     .body-background {
         margin-top: 30px;
     }
-}
+
+    .logo {
+        max-height: 210%;
+        position: relative;
+        top: -8px;
+    }
+}*/
+
 
 @media(min-width: 566px) and (max-width: 767px) {
 
@@ -155,8 +173,10 @@ p, div {
     .navbar-toggle-style {
         display: none;
     }
-
-    .progress-table{
+    .container{
+        max-width: 100%;
+    }
+    .progress-table {
         width: 90%;
     }
 
@@ -165,7 +185,7 @@ p, div {
     }
 
     .logo {
-        max-height: 300%;
+        max-height: 250%;
         position: relative;
         top: -15px;
     }
@@ -178,12 +198,8 @@ p, div {
         width: 40%;
     }
 
-    .logout {
-        float: right;
-    }
-
     .body-background {
-        margin: 15px;
+        margin-top: 25px;
         padding: 10px;
         border-radius: 15px;
     }
@@ -231,6 +247,14 @@ a {
     color: #0078ff;
 }
 
+.dropdown {
+    color: white;
+}
+
+.day:hover {
+    background-color: blue;
+}
+
 .description {
     width: 100%;
     height: 30px;
@@ -259,7 +283,7 @@ a {
     line-height: normal;
     background-color: transparent;
     border-collapse: separate;
-    border-spacing: 10px 3px;
+    border-spacing: 10px 12px;
     color: #C3C4C5;
 }
 
@@ -274,6 +298,8 @@ a {
 
 .row-data {
     font-size: 18px;
+    font-family: Oswald;
+    margin: 15px;
 }
 
 .vote-button {
@@ -292,6 +318,11 @@ a {
 .hover {
     cursor: pointer;
 }
+
+.td {
+    
+}
+
 
 .navbar-style {
     border-color: #2d3236;
@@ -338,9 +369,15 @@ a {
 
 .navbar-nav > li > a:hover, .navbar-nav > li > a:focus {
     background-color: #c1161c;
+    color: white;
 }
 
-/*.logo:hover{
-    border-radius: 30px;
-    border-color: #2d3236; 
-}*/
+.divider-line{
+    border: solid 4px;
+    border-color: #2d3236;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: -25px;
+    margin-right: -25px;
+}

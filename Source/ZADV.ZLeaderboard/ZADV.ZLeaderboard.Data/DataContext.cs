@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zadv.ZLeaderboard.Domain;
-using ZADV.ZLeaderboard.Domain;
+
 
 namespace ZADV.ZLeaderboard.Data
 {
@@ -56,6 +56,12 @@ namespace ZADV.ZLeaderboard.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+
+            modelBuilder.Entity<Voter>()
+                .HasRequired(a => a.Participant).WithMany(d => d.Voters)
+                .WillCascadeOnDelete();
+
         }
     }
 }

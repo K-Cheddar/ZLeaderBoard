@@ -20,15 +20,7 @@
           if ($scope.model.eventId) {
               userEventService.get($scope.model.eventId).success(function (event) {
                   $scope.model.event = event;
-                  if ($scope.model.participants.length == $scope.model.event.Participants.length) {
-                      for (var i = 0; i < $scope.model.participants.length; i++) {
-                          $scope.model.participants[i].VoteCount
-                              = $scope.model.event.Participants[i].VoteCount;
-                      }
-                  }
-                  else {
-                      $scope.model.participants = event.Participants;
-                  }
+                  $scope.model.participants = event.Participants;
               }).error(function (err) {
                   alert("Error");
               })

@@ -129,12 +129,15 @@
           else {
               $scope.model.datesValid = true;
           }
-          //if (s.getTime() < c.getTime()) {
-          //    $scope.model.startDateTooEarly = true;
-          //}
-          //else {
-          //    $scope.model.startDateTooEarly = false;
-          //}
+          if ($scope.model.createEvent) {
+              if (s.getTime() < c.getTime()) {
+                  $scope.model.startDateTooEarly = true;
+              }
+              else {
+                  $scope.model.startDateTooEarly = false;
+              }
+          }
+
           if ( e.getTime() < c.getTime()) {
               $scope.model.endDateTooEarly = true;
           }

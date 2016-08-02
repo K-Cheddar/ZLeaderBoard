@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zadv.ZLeaderboard.Domain
 {
@@ -19,5 +15,7 @@ namespace Zadv.ZLeaderboard.Domain
         public string Color { get; set; }
 
         public virtual Event Event { get; set; }
+
+        public virtual IList<Voter> Voters { get; set; }
     }
 }

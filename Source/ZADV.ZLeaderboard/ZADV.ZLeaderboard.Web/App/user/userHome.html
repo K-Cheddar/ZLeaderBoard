@@ -17,11 +17,16 @@
             </div>
         </div>
     </div>
-    <br />
+    <div class="divider-line"></div>
     <div class="container">
         <h4>Upcoming Events</h4>
-        <a ng-if="!model.showUpcoming" ng-click="showHide('Upcoming')" class="btn btn-default">Hide</a>
-        <a ng-if="model.showUpcoming" ng-click="showHide('Upcoming')" class="btn btn-default">Show</a>
+        <div ng-if="model.events.UpcomingEvents.length > 0">
+            <a ng-if="!model.showUpcoming" ng-click="showHide('Upcoming')" class="btn btn-default">Hide</a>
+            <a ng-if="model.showUpcoming" ng-click="showHide('Upcoming')" class="btn btn-default">Show</a>
+        </div>
+        <div ng-if="model.events.UpcomingEvents.length == 0">
+            <p>None</p>
+        </div>
         <div class="cards" ng-hide="model.showUpcoming" ng-repeat="event in model.events.UpcomingEvents">
             <div class="card col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card-block">
@@ -33,11 +38,16 @@
             </div>
         </div>
     </div>
-    <br />
+    <div class="divider-line"></div>
     <div class="container">
         <h4>Past Events</h4>
-        <a ng-if="!model.showPast" ng-click="showHide('Past')" class="btn btn-default">Hide</a>
-        <a ng-if="model.showPast" ng-click="showHide('Past')" class="btn btn-default">Show</a>
+        <div ng-if="model.events.PastEvents.length > 0">
+            <a ng-if="!model.showPast" ng-click="showHide('Past')" class="btn btn-default">Hide</a>
+            <a ng-if="model.showPast" ng-click="showHide('Past')" class="btn btn-default">Show</a>
+        </div>
+        <div ng-if="model.events.PastEvents.length == 0">
+            <p>None</p>
+        </div>
         <div class="cards" ng-hide="model.showPast" ng-repeat="event in model.events.PastEvents | limitTo:3">
             <div class="card col-xs-12 col-sm-6 col-md-4 col-lg-3 pastEvent">
                 <a ui-sref="eventWinner({eventId: event.Id})">

@@ -3,10 +3,10 @@
     <h4>Enter your email to vote</h4>
     <form name="emailForm" ng-submit="saveEmail()">
         <div class="email-form">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="Name" required ng-model="model.emailTmp" /><br />
-            <button ng-disabled="emailForm.$invalid" type="submit" class="btn btn-primary" style="float: left">Submit</button>
-                <a href="#userHome" class="btn btn-default" style="float: left">Back</a>
+            <p for="email">Email</p>
+            <input type="email" class="form-control" name="email" id="email" placeholder="email@email.com" required ng-model="model.emailTmp" /><br />
+            <button ng-disabled="emailForm.$invalid" type="submit" class="btn btn-primary" style="float: right">Submit</button>
+            <a href="#userHome" class="btn btn-default" style="float: left">Back</a>
         </div>
     </form>
 </div>
@@ -64,7 +64,8 @@
                 </a>
             </td>-->
             <td class="vote-bar">
-                <div class="progress-bar" style="width:{{getPercent(participant.VoteCount)}}%"><p>{{participant.VoteCount}}</p></div>
+                <div class="progress-bar" style="width:{{getPercent(participant.VoteCount)}}%;
+                      background-color: {{participant.Color}}"><p>{{participant.VoteCount}}</p></div>
                 <div ng-if="participant.VoteCount==0" class="progress-bar" style="width:8%"><p>{{participant.VoteCount}}</p></div>
             </td>
         </tr>

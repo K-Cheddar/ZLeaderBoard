@@ -93,6 +93,10 @@
     <Compile Include="Migrations\201608012142178_Colors.Designer.cs">
       <DependentUpon>201608012142178_Colors.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608021911345_AddedCascadeDelete.cs" />
+    <Compile Include="Migrations\201608021911345_AddedCascadeDelete.Designer.cs">
+      <DependentUpon>201608021911345_AddedCascadeDelete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParticipantRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -126,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608012142178_Colors.resx">
       <DependentUpon>201608012142178_Colors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608021911345_AddedCascadeDelete.resx">
+      <DependentUpon>201608021911345_AddedCascadeDelete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

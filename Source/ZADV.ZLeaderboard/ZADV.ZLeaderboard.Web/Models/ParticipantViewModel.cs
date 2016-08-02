@@ -19,6 +19,6 @@ namespace ZADV.ZLeaderboard.Web.Models
 
         public HttpPostedFileBase ImageFile { get; set; }
 
-        public Color Color { get; set; }
+        public String Color { get; set; }
     }
 }
