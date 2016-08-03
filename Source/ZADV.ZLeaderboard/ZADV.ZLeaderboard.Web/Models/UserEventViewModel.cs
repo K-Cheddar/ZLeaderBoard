@@ -17,6 +17,10 @@ namespace ZADV.ZLeaderboard.Web.Models
 
         public string Description { get; set; }
 
+        public DateTime StartAt { get; set; }
+
+        public DateTime EndAt { get; set; }
+
         public UserEventViewModel()
         {
             Participants = new List<ParticipantViewModel>();

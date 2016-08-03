@@ -40,13 +40,13 @@
 .datetimepicker .switch:hover,
 .datetimepicker .left:hover,
 .datetimepicker .right:hover {
-  background: #eeeeee;
+  background: #989898;
   cursor: pointer;
 }
 .datetimepicker .disabled,
 .datetimepicker .disabled:hover {
   background: none;
-  color: #ebebeb;
+  color: #767676;
   cursor: default;
 }
 .datetimepicker .active,
@@ -98,11 +98,11 @@
   width: 23%;
 }
 .datetimepicker span:hover {
-  background: #eeeeee;
+  background: #989898;
 }
 .datetimepicker .past,
 .datetimepicker .future {
-  color: #999999;
+  color: #3c3c3c;
 }
 
 /*# sourceMappingURL=datetimepicker.css.map */

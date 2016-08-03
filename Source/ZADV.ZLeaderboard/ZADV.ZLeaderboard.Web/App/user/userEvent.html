@@ -4,7 +4,7 @@
     <form name="emailForm" ng-submit="saveEmail()">
         <div class="email-form">
             <p for="email">Email</p>
-            <input type="email" class="form-control" name="email" id="email" placeholder="email@email.com" required ng-model="model.emailTmp" /><br />
+            <input type="email" class="form-control" name="email" id="email" placeholder="name@email.com" required ng-model="model.emailTmp" /><br />
             <button ng-disabled="emailForm.$invalid" type="submit" class="btn btn-primary" style="float: right">Submit</button>
             <a href="#userHome" class="btn btn-default" style="float: left">Back</a>
         </div>
@@ -22,10 +22,11 @@
             <td class="row-data">{{participant.Name}}</td>
             <td class="row-data">{{participant.VoteCount}}</td>
             <td ng-if="model.voteAllowed">
-                <a href="" class="btn vote-button" ng-disabled="!model.email" ng-click="vote(participant)">
+                <a class="btn vote-button" ng-disabled="participant.VotedFor" ng-click="participant.VotedFor || vote(participant)">
                     Vote <i style="color:black" class="fa fa-plus-square fa" aria-hidden="true"></i>
                 </a>
             </td>
+            <td> <i ng-if="participant.VotedFor" class="fa fa-check-circle-o eActive" aria-hidden="true"></i></td>
         </tr>
     </table>
     <div ng-if="model.alreadyVoted" style="max-width: 80%" class="alert alert-danger alert-dismissible fade in" role="alert">

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using Zadv.ZLeaderboard.Domain;
 
 namespace ZADV.ZLeaderboard.Web.Models
 {
@@ -20,5 +21,7 @@ namespace ZADV.ZLeaderboard.Web.Models
         public HttpPostedFileBase ImageFile { get; set; }
 
         public String Color { get; set; }
+
+        public bool VotedFor { get; set; }
     }
 }

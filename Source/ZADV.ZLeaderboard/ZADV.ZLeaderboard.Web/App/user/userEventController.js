@@ -12,18 +12,26 @@
           participants: {}
       };
 
-      if (!$scope.model.voteAllowed) {
-          $interval(reload, 5000);
-      }
+
+      $interval(reload, 5000);
 
       function reload() {
-          if ($scope.model.eventId) {
-              userEventService.get($scope.model.eventId).success(function (event) {
-                  $scope.model.event = event;
-                  $scope.model.participants = event.Participants;
-              }).error(function (err) {
-                  alert("Error");
-              })
+          if ($state.current.name == "userEventVote" || $state.current.name == "userEventView") {
+              if ($scope.model.eventId) {
+                  userEventService.get($scope.model.eventId).success(function (event) {
+
+                      var end = new Date(event.EndAt);
+                      var c = new Date();
+                      if (end.getTime() < c.getTime()) {
+                          $scope.model.voteAllowed = false;
+                      }
+                      $scope.model.event = event;
+                      $scope.model.participants = event.Participants;
+
+                  }).error(function (err) {
+                      //alert("Error");
+                  })
+              }
           }
       };
 
@@ -36,16 +44,16 @@
       }
 
       $scope.vote = function (participant) {
-
           userEventService.put(participant.Id).success(function (voted) {
               participant.VoteCount = voted.VoteCount;
+              participant.VotedFor = true;
               $scope.model.alreadyVoted = voted.Voted;
               $timeout(function () {
                   $scope.model.alreadyVoted = false;
               }, 1000)
 
           }).error(function (err) {
-              alert("Error");
+              //alert("Error");
           })
       }
 

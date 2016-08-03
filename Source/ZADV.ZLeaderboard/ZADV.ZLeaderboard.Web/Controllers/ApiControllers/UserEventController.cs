@@ -58,6 +58,12 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 
         public UserEventViewModel Get(int id)
         {
+            var test = _eventRepository.Get(id);
+            if (test == null)
+            {
+                UserEventViewModel mod = new UserEventViewModel();
+                return mod;
+            }
             IList<Participant> participants = EventParticipants(_eventRepository.Get(id)).OrderBy(p => p.Name).ToList();
             List<ParticipantViewModel> winners = new List<ParticipantViewModel>();
             List<string> winnerNames = new List<string>();
@@ -67,23 +73,38 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             UserEventViewModel model = new UserEventViewModel()
             {
                 Name = _eventRepository.Get(id).Name,
-                Description = _eventRepository.Get(id).Description
+                Description = _eventRepository.Get(id).Description,
+                EndAt = _eventRepository.Get(id).EndAt,
+                StartAt = _eventRepository.Get(id).StartAt
             };
 
 
             foreach (var participant in participants)
             {
                 //vote count gets the number of participants from the list equal to this one
-                voteCount = _voterRepository.GetAll()
-                    .Where(p => p.Participant.Id == participant.Id)
-                    .Count();
+                var voterList = _voterRepository.GetAll()
+                    .Where(p => p.Participant.Id == participant.Id);
+                voteCount = voterList.Count();
+
+                var votedFor = false;
+                string value = GetCookie();
+
+                foreach (var vo in voterList)
+                {
+                    if (value.Equals(vo.Email))
+                    {
+                        votedFor = true;
+                        break;
+                    }
+                }
 
                 ParticipantViewModel part = new ParticipantViewModel()
                 {
                     Name = participant.Name,
                     Id = participant.Id,
                     VoteCount = voteCount,
-                    Color = participant.Color
+                    Color = participant.Color,
+                    VotedFor = votedFor
                 };
 
                 if (voteCount > max)
@@ -121,17 +142,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             //    }
             //}
             bool voteAllowed = true;
-            string value = null;
-
-            IEnumerable<CookieHeaderValue> cookies = this.Request.Headers.GetCookies("user");
-            if (cookies.Any())
-            {
-                IEnumerable<CookieState> cookie = cookies.First().Cookies;
-                if (cookie.Any())
-                {
-                    value = cookie.First().Value;
-                }
-            }
+            string value = GetCookie();
 
             foreach (var voter in voters)
             {
@@ -189,5 +200,21 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             return eventParticipants;
         }
 
+        private string GetCookie()
+        {
+            string value = "";
+
+            IEnumerable<CookieHeaderValue> cookies = this.Request.Headers.GetCookies("user");
+            if (cookies.Any())
+            {
+                IEnumerable<CookieState> cookie = cookies.First().Cookies;
+                if (cookie.Any())
+                {
+                    value = cookie.First().Value;
+                }
+            }
+
+            return value;
+        }
     }
 }

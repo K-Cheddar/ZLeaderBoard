@@ -10,7 +10,7 @@
       userEventService.all().success(function (events) {
           $scope.model.events = events;
       }).error(function (err) {
-          alert("Error");
+          //alert("Error");
       })
 
       $scope.showHide = function (state){

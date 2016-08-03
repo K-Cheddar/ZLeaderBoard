@@ -3,7 +3,7 @@
 <div class="container" ng-controller="authController">
     <nav class="navbar navbar-style navbar-fixed-top">
         <div class="container-fluid">
-            <div colass="navbar-header">
+            <div class="navbar-header">
                 <i class="fa fa-bars navbar-toggle-style hover" data-toggle="collapse" data-target="#navbar2" aria-expanded="false" aria-controls="navbar" aria-hidden="true"></i>
                 <a class="navbar-brand" href="#"><img class="logo" src="~/Content/Images/zLeaderboard-logo_03.jpg" /></a>
             </div>
@@ -27,7 +27,7 @@
                         <li><a class="nav-btn" data-toggle="collapse" data-target="#navbar2" ng-if="model.authenticated" ui-sref="userHome">User Home</a></li>
                         <li><a class="nav-btn" data-toggle="collapse" data-target="#navbar2" ng-if="!model.authenticated" ui-sref="adminLogin">Admin Login</a></li>
                         <li><a class="nav-btn" data-toggle="collapse" data-target="#navbar2" ng-if="!model.authenticated" ui-sref="userHome">Home</a></li>
-                        <li><a class="nav-btn" data-toggle="collapse" data-target="#navbar" ng-if="model.authenticated" href="" ng-click="logout()">Logout</a></li>
+                        <li><a class="nav-btn" data-toggle="collapse" data-target="#navbar2" ng-if="model.authenticated" href="" ng-click="logout()">Logout</a></li>
                     </ul>
                 </div>
             </div>
