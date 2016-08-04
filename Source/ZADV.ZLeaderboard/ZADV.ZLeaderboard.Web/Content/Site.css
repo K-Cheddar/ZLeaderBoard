@@ -379,3 +379,11 @@ a {
     margin-left: -25px;
     margin-right: -25px;
 }
+
+.e-checkbox{
+    border: solid 1px;
+    border-radius: 8px;
+    border-color: black;
+    background-color: white;
+    color: black;
+}

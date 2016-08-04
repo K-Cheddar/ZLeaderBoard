@@ -124,6 +124,8 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                     if (participant.Id == currentParticipant.Id)
                     {
                         present = true;
+                        currentParticipant.Name = participant.Name;
+                        _participantRepository.Update(currentParticipant);
                         model.Participants.Remove(participant);
                         break;
                     }
@@ -216,15 +218,28 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
         {
             List<string> colors = new List<string>()
             {
-                "#20C3B3",
-                "#D20101",
-                "#C12091",
-                "#E57400",
-                "#6CC900",
-                "#0404D4",
-                "#5C0AFF",
-                "#0C9800",
-                "#1B0092"
+                "#D98880",
+                "#C39BD3",
+                "#5499C7",
+                "#48C9B0",
+                "#52BE80",
+                "#F4D03F",
+                "#F5B041",
+                "#DC7633",
+                "#922B21",
+                "#76448A",
+                "#1F618D",
+                "#148F77",
+                "#1E8449",
+                "#B7950B",
+                "#A04000",
+                "#78281F",
+                "#512E5F",
+                "#154360",
+                "#0E6251",
+                "#186A3B",
+                "#7D6608",
+                "#6E2C00",
             };
 
             return colors;

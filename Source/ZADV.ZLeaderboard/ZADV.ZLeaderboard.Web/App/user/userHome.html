@@ -1,7 +1,9 @@
 ﻿<div class="container">
     <div class="container">
         <h4>Active Events</h4>
-        <br />
+        <div ng-if="model.events.ActiveEvents.length == 0">
+            <p>No Records Found</p>
+        </div>
         <div class="cards" ng-repeat="event in model.events.ActiveEvents">
             <div class="card col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card-block ">
@@ -12,7 +14,7 @@
                         <p class="description">{{event.Description | characters:80: false}}</p>
                     </div>
                     <a ui-sref="userEventVote({eventId: event.Id})" class="btn btn-primary">Vote</a>
-                    <a ui-sref="userEventView({eventId: event.Id})" class="btn btn-primary">Dashboard</a>
+                    <a ui-sref="userEventView({eventId: event.Id})" class="btn btn-primary">Leaderboard</a>
                 </div>
             </div>
         </div>
@@ -25,7 +27,7 @@
             <a ng-if="model.showUpcoming" ng-click="showHide('Upcoming')" class="btn btn-default">Show</a>
         </div>
         <div ng-if="model.events.UpcomingEvents.length == 0">
-            <p>None</p>
+            <p>No Records Found</p>
         </div>
         <div class="cards" ng-hide="model.showUpcoming" ng-repeat="event in model.events.UpcomingEvents">
             <div class="card col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -46,7 +48,7 @@
             <a ng-if="model.showPast" ng-click="showHide('Past')" class="btn btn-default">Show</a>
         </div>
         <div ng-if="model.events.PastEvents.length == 0">
-            <p>None</p>
+            <p>No Records Found</p>
         </div>
         <div class="cards" ng-hide="model.showPast" ng-repeat="event in model.events.PastEvents | limitTo:3">
             <div class="card col-xs-12 col-sm-6 col-md-4 col-lg-3 pastEvent">

@@ -7,6 +7,9 @@
           },
           participants: [],
           participantName: undefined,
+          editParticipantName: undefined,
+          editingParticipant: false,
+          editingParticipantIndex: undefined,
           createEvent: $state.current.data.createEvent,
           participantClicked: false,
           eventNameClicked: false,
@@ -98,8 +101,32 @@
                   alert("You don't have access to that.");
               })
           }
-
       }
+
+      $scope.editParticipantName = function (index) {
+          $scope.model.editParticipantName = $scope.model.participants[index].Name;
+          $scope.model.editingParticipantIndex = index;
+          $scope.model.editingParticipant = true;
+      };
+
+      $scope.saveParticipantName = function (index) {
+          $scope.model.participants[index].Name = $scope.model.editParticipantName;
+          $scope.model.editingParticipantIndex = undefined;
+          $scope.model.editingParticipant = false;
+      };
+
+      $scope.cancelParticipantName = function () {
+          $scope.model.editParticipantName = "";
+          $scope.model.editingParticipantIndex = undefined;
+          $scope.model.editingParticipant = false;
+      };
+
+      $scope.onParticipantNameChange = function (){
+          if($scope.model.editParticipantName ){
+              $scope.model.editingParticipantIndex = undefined;
+          }
+      };
+
 
       $scope.addParticipant = function () {
           $scope.model.participants.push({
@@ -113,6 +140,7 @@
       }
 
       $scope.removeParticipant = function (index) {
+          $scope.model.editingParticipantIndex = undefined;
           $scope.model.participants.splice(index, 1);
       }
       $scope.ActiveBox = function (){
