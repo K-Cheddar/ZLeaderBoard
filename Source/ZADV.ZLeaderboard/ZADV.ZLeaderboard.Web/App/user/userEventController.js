@@ -13,10 +13,10 @@
       };
 
 
-      $interval(reload, 5000);
+      var repeat = $interval(reload, 5000);
 
       function reload() {
-          if ($state.current.name == "userEventVote" || $state.current.name == "userEventView") {
+          if ($state.current.name == "userEventVote" || $state.current.name == "userEventView" || $state.current.name == "eventWinner") {
               if ($scope.model.eventId) {
                   userEventService.get($scope.model.eventId).success(function (event) {
 
@@ -32,6 +32,9 @@
                       //alert("Error");
                   })
               }
+          }
+          else {
+              $interval.cancel(repeat);
           }
       };
 
