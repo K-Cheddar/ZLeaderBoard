@@ -22,9 +22,8 @@
                   userEventService.get($scope.model.eventId).success(function (event) {
 
                       var end = $filter('date')(new Date(event.EndAt), 'EEE MMM dd, yyyy hh:mm a');;
-                      var c = $filter('date')(new Date(), 'EEE MMM dd, yyyy hh:mm a');
-                      //alert(c + " > " + end);
-                      if (end > c) {
+                      var c = $filter('date')(new Date(), 'EEE MMM dd, yyyy hh:mm a');;
+                      if (end < c) {
                           $scope.model.voteAllowed = false;
                       }
                       $scope.model.event = event;

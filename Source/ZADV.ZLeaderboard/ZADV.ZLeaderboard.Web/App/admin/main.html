@@ -5,20 +5,20 @@
     <br />
     <table class="table table-hover">
         <tr class="active">
-            <th> </th>
-            <th>Name</th>
-            <th>Starts</th>
-            <th>Ends</th>
-            <th>Edit</th>
+            <th class="hover" ng-click="sorter(undefined)"><i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th class="hover" ng-click="sorter('Name')">Name</th>
+            <th class="hover" ng-click="sorter('StartAt')">Starts</th>
+            <th class="hover" ng-click="sorter('EndAt')">Ends</th>
+            <th class="edit-col">Edit</th>
         </tr>
-        <tr class="hover" ui-sref="eventEdit({eventId: event.Id})" ng-repeat="event in model.events">
+        <tr class="hover" ui-sref="eventEdit({eventId: event.Id})" ng-repeat="event in model.events | orderBy:model.sort">
             <td colspan="1" ng-if="event.IsActive"><i class="fa fa-dot-circle-o eActive" aria-hidden="true"></i></td>
             <td colspan="1" ng-if="!event.IsActive"><i class="fa fa-dot-circle-o eInactive" aria-hidden="true"></i></td>
             <td>{{event.Name | characters:30: false}}</td>
             <td>{{event.StartAt | date:'short'}}</td>
             <td>{{event.EndAt | date:'short'}}</td>
             <!--<td>{{event.IsActive == true ? "Active" : "Not Active"}}</td>-->
-            <td><a ui-sref="eventEdit({eventId: event.Id})"><i class="fa fa-pencil-square-o fa-lg edit" aria-hidden="true"></i></a></td>
+            <td class="edit-col"><a ui-sref="eventEdit({eventId: event.Id})"><i class="fa fa-pencil-square-o fa-lg edit" aria-hidden="true"></i></a></td>
         </tr>
     </table>
 </div>

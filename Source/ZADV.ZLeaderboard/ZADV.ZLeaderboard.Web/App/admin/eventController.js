@@ -18,7 +18,7 @@
           startDateTooEarly: false,
           endDateTooEarly: false,
           incorrectStartDateFormat: false,
-          incorrectEndDateFormat: false,
+          incorrectEndDateFormat: false
           //participantImage: undefined
       };
 

@@ -10,7 +10,7 @@ body {
     padding-right: 15px;
 }
 
-td{
+td {
     font-weight: 500;
 }
 
@@ -94,11 +94,11 @@ p {
 
 @media (max-width: 768px) {
     .btn {
-        padding: 10px 41px;
+        padding: 10px 40px;
         max-width: 80%;
     }
 
-    .progress-height{
+    .progress-height {
         line-height: 30px;
     }
 
@@ -140,20 +140,31 @@ p {
     }
 }
 
-/*@media(max-width: 342px) {
-    .body-background {
-        margin-top: 30px;
-    }
-
+@media(max-width: 342px) {
     .logo {
-        max-height: 210%;
+        max-height: 241%;
         position: relative;
-        top: -8px;
+        top: -15px;
     }
-}*/
+}
+
+@media (max-width: 420px) {
+    .btn-small {
+        padding: 10px 15px;
+        max-width: 50%;
+        margin: 5px;
+    }
+    .dropdown-menu, .datetimepicker{
+        max-width: 100%;
+    }
+
+    .edit-col{
+        display: none;
+    }
+}
 
 
-@media(min-width: 480px) and (max-width: 767px) {
+@media(min-width: 479px) and (max-width: 767px) {
 
     .card {
         width: 50%;
@@ -173,9 +184,11 @@ p {
     .navbar-toggle-style {
         display: none;
     }
-    .container{
+
+    .container {
         max-width: 100%;
     }
+
     .progress-table {
         width: 90%;
     }
@@ -215,6 +228,7 @@ p {
 
 .cards {
     width: 85%;
+    display: inline;
 }
 
 .email-form,
@@ -318,7 +332,6 @@ a {
 }
 
 .td {
-    
 }
 
 
@@ -370,7 +383,7 @@ a {
     color: white;
 }
 
-.divider-line{
+.divider-line {
     border: solid 4px;
     border-color: #2d3236;
     display: block;
@@ -380,10 +393,26 @@ a {
     margin-right: -25px;
 }
 
-.e-checkbox{
+.e-uncheckbox, .e-checkbox {
     border: solid 1px;
     border-radius: 8px;
     border-color: black;
-    background-color: white;
+    background-color: #dbdbdb;
+    font-size: 1.5em;
+}
+
+.e-checkbox {
     color: black;
+}
+
+.e-uncheckbox {
+    color: #dbdbdb;
+}
+
+.loading {
+    float: right;
+    color: #417dd4;
+    margin-top: 3px;
+    margin-right: -4px;
+    margin-left: 3px;
 }

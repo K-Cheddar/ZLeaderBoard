@@ -74,7 +74,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             {
                 Name = _eventRepository.Get(id).Name,
                 Description = _eventRepository.Get(id).Description,
-                EndAt = _eventRepository.Get(id).EndAt,
+                EndAt = _eventRepository.Get(id).EndAt.ToUniversalTime(),
                 StartAt = _eventRepository.Get(id).StartAt
             };
 
@@ -165,6 +165,11 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                     Email = value,
                     Participant = participant
                 };
+                //var vps = _voterRepository.GetAll();
+                //foreach (var vp in vps)
+                //{
+                //    if()
+                //}
                 _voterRepository.Add(voter);
             }
 

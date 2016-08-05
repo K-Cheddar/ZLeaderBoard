@@ -4,9 +4,19 @@
       $scope.model = {
           name: "",
           events: [],
-          event: undefined
+          event: undefined,
+          sort: undefined
       };
 
+      $scope.sorter = function (sort) {
+
+          if ($scope.model.sort == sort) {
+              $scope.model.sort = '-' + sort;
+          }
+          else {
+              $scope.model.sort = sort;
+          }
+      }
 
       var init = function () {
           if (!$scope.$parent.model.authenticated) {
