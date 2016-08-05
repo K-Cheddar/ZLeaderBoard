@@ -51,7 +51,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                     }
                 }
             }
-            model.PastEvents = model.PastEvents.OrderByDescending(t => t.StartAt).ToList();
+            model.PastEvents = model.PastEvents.OrderByDescending(t => t.EndAt).ToList();
 
             return model;
         }

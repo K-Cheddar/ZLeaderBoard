@@ -1,5 +1,6 @@
 ﻿angular.module('adminApp')
-  .controller('userEventController', function ($cookies, $scope, userEventService, $stateParams, $state, $location, $route, $timeout, $interval) {
+  .controller('userEventController', function ($cookies, $scope, userEventService, $stateParams,
+                                                $state, $location, $route, $timeout, $interval, $filter) {
 
       $scope.model = {
           event: {},
@@ -20,9 +21,10 @@
               if ($scope.model.eventId) {
                   userEventService.get($scope.model.eventId).success(function (event) {
 
-                      var end = new Date(event.EndAt);
-                      var c = new Date();
-                      if (end.getTime() < c.getTime()) {
+                      var end = $filter('date')(new Date(event.EndAt), 'EEE MMM dd, yyyy hh:mm a');;
+                      var c = $filter('date')(new Date(), 'EEE MMM dd, yyyy hh:mm a');
+                      //alert(c + " > " + end);
+                      if (end > c) {
                           $scope.model.voteAllowed = false;
                       }
                       $scope.model.event = event;
