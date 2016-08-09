@@ -27,7 +27,6 @@
                       end = new Date(end);
                       start = new Date(start);
                       c = new Date(c);
-                      $scope.model.tester = ("Start: " + start + "  End: " + end + "  Current: " + c);
                       if (end < c || start > c) {
                           $scope.model.voteAllowed = false;
                       }
