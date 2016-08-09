@@ -10,7 +10,8 @@
           eventId: $stateParams.eventId,
           voteAllowed: $state.current.data.showButton,
           alreadyVoted: false,
-          participants: {}
+          participants: {},
+          tester: undefined
       };
 
 
@@ -21,10 +22,18 @@
               if ($scope.model.eventId) {
                   userEventService.get($scope.model.eventId).success(function (event) {
 
-                      var end = $filter('date')(new Date(event.EndAt), 'EEE MMM dd, yyyy hh:mm a');;
-                      var c = $filter('date')(new Date(), 'EEE MMM dd, yyyy hh:mm a');;
-                      if (end < c) {
+                      var end = $filter('date')(new Date(event.EndAt), 'EEE MMM dd, yyyy hh:mm a');
+                      var start = $filter('date')(new Date(event.StartAt), 'EEE MMM dd, yyyy hh:mm a');
+                      var c = $filter('date')(new Date(), 'EEE MMM dd, yyyy hh:mm a');
+                      end = new Date(end);
+                      start = new Date(start);
+                      c = new Date(c);
+                      $scope.model.tester = ("Start: " + start + "  End: " + end + "  Current: " + c);
+                      if (end < c || start > c) {
                           $scope.model.voteAllowed = false;
+                      }
+                      else {
+                          $scope.model.voteAllowed = true;
                       }
                       $scope.model.event = event;
                       $scope.model.participants = event.Participants;
@@ -43,7 +52,10 @@
 
 
       $scope.saveEmail = function () {
-          $cookies.put('user', $scope.model.emailTmp);
+          var expireDate = new Date();
+          expireDate.setFullYear(expireDate.getFullYear() + 1);
+          alert(expireDate);
+          $cookies.put('user', $scope.model.emailTmp, { 'expires': expireDate });
           $scope.model.email = $scope.model.emailTmp;
       }
 

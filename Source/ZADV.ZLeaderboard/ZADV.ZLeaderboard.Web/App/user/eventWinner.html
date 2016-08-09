@@ -9,7 +9,7 @@
             <th><p>Votes</p> </th>
         </tr>
         <tr ng-repeat="participant in model.event.Participants | orderBy:'-VoteCount'">
-            <td><p>{{participant.Name}}</p></td>
+            <td><p>{{participant.Name | characters: 35}}</p></td>
             <td class="vote-bar">
                 <div class="progress-bar" 
                      style="width:{{getPercent(participant.VoteCount)}}%; background-color:{{participant.Color}}">

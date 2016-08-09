@@ -154,15 +154,15 @@ p {
         max-width: 50%;
         margin: 5px;
     }
-    .dropdown-menu, .datetimepicker{
+
+    .dropdown-menu, .datetimepicker {
         max-width: 100%;
     }
 
-    .edit-col{
+    .edit-col {
         display: none;
     }
 }
-
 
 @media(min-width: 479px) and (max-width: 767px) {
 
