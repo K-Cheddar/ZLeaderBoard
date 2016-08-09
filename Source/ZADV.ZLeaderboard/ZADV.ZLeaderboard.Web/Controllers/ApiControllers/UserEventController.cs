@@ -133,6 +133,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
         {
             Participant participant = _participantRepository.Get(id);
             VotesViewModel vvm = new VotesViewModel();
+            bool multipleVotes = _eventRepository.Get(participant.Event.Id).MultipleVotes;
             IEnumerable<Voter> voters = _voterRepository.GetAll().Where(p => p.Participant.Event.Id == participant.Event.Id);
             //foreach (var voter in voters)
             //{
@@ -143,41 +144,78 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             //}
             bool voteAllowed = true;
             string value = GetCookie();
-
-            foreach (var voter in voters)
+            
+            if (!multipleVotes)
             {
-                //check if Voter voted for a different participant from same event
-                //if (voter.Email == value && voter.Participant.Event.Id == participant.Event.Id && voter.Participant.Id != participant.Id)
-                //{
-                //    _voterRepository.Remove(voter);
-
-                //}
-                //check if voter already voted for participant
-                if (voter.Email == value && voter.Participant.Id == participant.Id)
+                foreach (var voter in voters)
                 {
-                    voteAllowed = false;
+                    //check if Voter voted for a different participant from same event
+                    if (voter.Email == value && voter.Participant.Event.Id == participant.Event.Id && voter.Participant.Id != participant.Id)
+                    {
+                        _voterRepository.Remove(voter);
+
+                    }
+                    //check if voter already voted for participant
+                    else if (voter.Email == value && voter.Participant.Id == participant.Id)
+                    {
+                        voteAllowed = false;
+                    }
                 }
-            }
-            if (voteAllowed)
-            {
-                Voter voter = new Voter()
+                if (voteAllowed)
                 {
-                    Email = value,
-                    Participant = participant
-                };
-                //var vps = _voterRepository.GetAll();
-                //foreach (var vp in vps)
-                //{
-                //    if()
-                //}
-                _voterRepository.Add(voter);
+                    Voter voter = new Voter()
+                    {
+                        Email = value,
+                        Participant = participant
+                    };
+                    //var vps = _voterRepository.GetAll();
+                    //foreach (var vp in vps)
+                    //{
+                    //    if()
+                    //}
+                    _voterRepository.Add(voter);
+                }
+                _participantRepository.Update(participant);
+                vvm.VoteCount = _voterRepository.GetAll().Where(p => p.Participant.Id == participant.Id).Count();
+                vvm.Voted = !voteAllowed;
+                return vvm;
             }
 
+            else
+            {
+                foreach (var voter in voters)
+                {
+                    //check if Voter voted for a different participant from same event
+                    //if (voter.Email == value && voter.Participant.Event.Id == participant.Event.Id && voter.Participant.Id != participant.Id)
+                    //{
+                    //    _voterRepository.Remove(voter);
 
-            _participantRepository.Update(participant);
-            vvm.VoteCount = _voterRepository.GetAll().Where(p => p.Participant.Id == participant.Id).Count();
-            vvm.Voted = !voteAllowed;
-            return vvm;
+                    //}
+                    //check if voter already voted for participant
+                    if (voter.Email == value && voter.Participant.Id == participant.Id)
+                    {
+                        voteAllowed = false;
+                    }
+                }
+                if (voteAllowed)
+                {
+                    Voter voter = new Voter()
+                    {
+                        Email = value,
+                        Participant = participant
+                    };
+                    //var vps = _voterRepository.GetAll();
+                    //foreach (var vp in vps)
+                    //{
+                    //    if()
+                    //}
+                    _voterRepository.Add(voter);
+                }
+                _participantRepository.Update(participant);
+                vvm.VoteCount = _voterRepository.GetAll().Where(p => p.Participant.Id == participant.Id).Count();
+                vvm.Voted = !voteAllowed;
+                return vvm;
+            }
         }
 
         public HttpResponseMessage emailCookie(EmailInputViewModel model)

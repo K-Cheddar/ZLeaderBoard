@@ -18,7 +18,9 @@
           startDateTooEarly: false,
           endDateTooEarly: false,
           incorrectStartDateFormat: false,
-          incorrectEndDateFormat: false
+          incorrectEndDateFormat: false,
+          showResetVotes: false,
+          showResetVotesInfo: false
           //participantImage: undefined
       };
 
@@ -52,6 +54,7 @@
               event.EndAt = new Date(event.EndAt);
               $scope.model.event = event;
               $scope.model.participants = event.Participants;
+              $scope.model.showResetVotes = true;
           }).error(function (err) {
               alert("You don't have access to that.");
           })
@@ -61,6 +64,8 @@
           $scope.model.event.StartAt = new Date();
           $scope.model.event.EndAt = new Date();
           $scope.model.event.IsActive = true;
+          $scope.model.showResetVotes = false;
+          $scope.model.event.MultipleVotes = true;
       }
 
       $scope.save = function () {
@@ -79,6 +84,8 @@
               startAt: $filter('date')(new Date($scope.model.event.StartAt), 'EEE MMM dd, yyyy hh:mm a'),
               endAt: $filter('date')(new Date($scope.model.event.EndAt), 'EEE MMM dd, yyyy hh:mm a'),
               isActive: checked,
+              multipleVotes: $scope.model.event.MultipleVotes,
+              resetVotes: $scope.model.event.ResetVotes,
               description: $scope.model.event.Description,
               participants: $scope.model.participants
           }
@@ -127,7 +134,6 @@
           }
       };
 
-
       $scope.addParticipant = function () {
           $scope.model.participants.push({
               Name: $scope.model.participantName,
@@ -143,8 +149,21 @@
           $scope.model.editingParticipantIndex = undefined;
           $scope.model.participants.splice(index, 1);
       }
+
       $scope.ActiveBox = function (){
           $scope.model.event.IsActive = !$scope.model.event.IsActive;
+      }
+
+      $scope.VotingBox = function () {
+          $scope.model.event.MultipleVotes = !$scope.model.event.MultipleVotes;
+      }
+
+      $scope.ResetVotes = function () {
+          $scope.model.event.ResetVotes = !$scope.model.event.ResetVotes;
+      }
+
+      $scope.ResetVotesInfo = function () {
+          $scope.model.showResetVotesInfo = !$scope.model.showResetVotesInfo;
       }
 
       $scope.timeValidate = function(){

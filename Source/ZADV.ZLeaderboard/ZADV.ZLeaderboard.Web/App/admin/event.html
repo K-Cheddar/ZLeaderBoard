@@ -73,6 +73,38 @@
                 <a ng-if="model.event.IsActive" ng-click="ActiveBox()"><i class="fa fa-check hover e-checkbox" aria-hidden="true"></i></a>
                 <a ng-if="!model.event.IsActive" ng-click="ActiveBox()"><i class="fa fa-check hover e-uncheckbox" aria-hidden="true"></i></a>
             </div>
+            <div>
+                <h3>Voting Scheme</h3>
+                <table class="vote-scheme">
+                    <tr>
+                        <th>Multple Votes Allowed</th>
+                        <th>Single Votes Only</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <a ng-if="model.event.MultipleVotes" ng-click="VotingBox()"><i class="fa fa-check hover e-checkbox" aria-hidden="true"></i></a>
+                            <a ng-if="!model.event.MultipleVotes" ng-click="VotingBox()"><i class="fa fa-check hover e-uncheckbox" aria-hidden="true"></i></a>
+                        </th>
+                        <th>
+                            <a ng-if="!model.event.MultipleVotes" ng-click="VotingBox()"><i class="fa fa-check hover e-checkbox" aria-hidden="true"></i></a>
+                            <a ng-if="model.event.MultipleVotes" ng-click="VotingBox()"><i class="fa fa-check hover e-uncheckbox" aria-hidden="true"></i></a>
+                        </th>
+                    </tr>
+                </table>
+                <br />
+                <div ng-if="model.showResetVotes">
+                    <p>
+                        Reset Votes? <a class="hover" ng-click="ResetVotesInfo()"><i class="fa fa-info-circle edit" aria-hidden="true"></i></a>
+                        <div class="reset-info" ng-if="model.showResetVotesInfo">
+                            If someone has already voted multiple times, and you change from Multiple Votes to Single Votes, their votes will <bold>not</bold>
+                            be deleted unless you reset votes.
+                        </div>
+                        <button ng-if="model.event.ResetVotes" ng-click="ResetVotes()" type="submit" class="btn btn-warning btn-smx">Yes</button>
+                        <button ng-if="!model.event.ResetVotes" ng-click="ResetVotes()" type="submit" class="btn btn-info btn-smx">No</button>
+                    </p>
+                    <small ng-if="model.event.ResetVotes" style="color:yellow">All Votes for this event will be deleted!<br /></small>
+                </div>
+            </div>
         </form>
 
         <br />

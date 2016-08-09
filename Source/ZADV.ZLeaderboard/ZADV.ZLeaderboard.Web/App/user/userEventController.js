@@ -30,7 +30,7 @@
                       if (end < c || start > c) {
                           $scope.model.voteAllowed = false;
                       }
-                      else {
+                      else if ($state.current.name != "userEventView") {
                           $scope.model.voteAllowed = true;
                       }
                       $scope.model.event = event;
@@ -52,7 +52,6 @@
       $scope.saveEmail = function () {
           var expireDate = new Date();
           expireDate.setFullYear(expireDate.getFullYear() + 1);
-          alert(expireDate);
           $cookies.put('user', $scope.model.emailTmp, { 'expires': expireDate });
           $scope.model.email = $scope.model.emailTmp;
       }

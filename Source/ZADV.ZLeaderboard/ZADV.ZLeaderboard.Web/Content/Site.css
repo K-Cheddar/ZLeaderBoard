@@ -102,7 +102,7 @@ p {
         line-height: 30px;
     }
 
-    .progress-table, .vote-table, .winner, .event-form, .email-form {
+    .vote-scheme, .progress-table, .vote-table, .winner, .event-form, .email-form {
         width: 100%;
     }
 
@@ -170,7 +170,7 @@ p {
         width: 50%;
     }
 
-    .vote-bar, .progress-table, .vote-table {
+    .vote-bar, .progress-table, .vote-table, .vote-scheme {
         width: 100%;
     }
 }
@@ -281,6 +281,15 @@ a {
     border-color: #7e8286;
 }
 
+.reset-info {
+    color: dodgerblue;
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
 .vote-bar {
     width: 85%;
     height: 20px;
@@ -306,6 +315,15 @@ a {
     border-radius: 20px;
     border-collapse: separate;
     border-spacing: 10px 3px;
+}
+
+.vote-scheme {
+    text-align: center;
+    max-width: 100%;
+    color: white;
+    border-spacing: 10px 3px;
+    border-collapse: separate;
+    margin-left: -10px;
 }
 
 .row-data {

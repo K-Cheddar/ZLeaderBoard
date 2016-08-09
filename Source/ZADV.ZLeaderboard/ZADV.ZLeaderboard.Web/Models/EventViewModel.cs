@@ -23,6 +23,10 @@ namespace ZADV.ZLeaderboard.Web.Models
 
         public string Description { get; set; }
 
+        public bool MultipleVotes { get; set; }
+
+        public bool ResetVotes { get; set; }
+
         public List<ParticipantViewModel> Participants { get; set; }
 
         public EventViewModel()

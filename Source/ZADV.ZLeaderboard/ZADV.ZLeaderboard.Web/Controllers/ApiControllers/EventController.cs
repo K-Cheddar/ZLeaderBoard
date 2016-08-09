@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using ZADV.ZLeaderboard.Web.Security;
 using System.Drawing;
+using ZADV.ZLeaderboard.Domain.IRepositories;
 
 namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 {
@@ -30,11 +31,13 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
     {
         private IEventRepository _eventRepository;
         private IParticipantRepository _participantRepository;
+        private IVoterRepository _voterRepository;
 
-        public EventController(IEventRepository eventRepository, IParticipantRepository participantRepository)
+        public EventController(IEventRepository eventRepository, IParticipantRepository participantRepository, IVoterRepository voterRepository)
         {
             _eventRepository = eventRepository;
             _participantRepository = participantRepository;
+            _voterRepository = voterRepository;
         }
 
         // GET api/<controller>
@@ -61,6 +64,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                 EndAt = currentEvent.EndAt.ToUniversalTime(),
                 StartAt = currentEvent.StartAt.ToUniversalTime(),
                 IsActive = currentEvent.IsActive,
+                MultipleVotes = currentEvent.MultipleVotes,
                 Description = currentEvent.Description
             };
 
@@ -111,6 +115,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             editEvent.StartAt = model.StartAt;
             editEvent.EndAt = model.EndAt;
             editEvent.IsActive = model.IsActive;
+            editEvent.MultipleVotes = model.MultipleVotes;
             editEvent.Description = model.Description;
             _eventRepository.Update(editEvent);
 
@@ -139,6 +144,15 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 
             }
             AddParticipants(model, editEvent);
+
+            if (model.ResetVotes)
+            {
+                var voters = _voterRepository.GetAll();
+                foreach(var v in voters)
+                {
+                    _voterRepository.Remove(v);
+                }
+            }
         }
 
         private Guid SaveImage(HttpPostedFileBase imageFile)

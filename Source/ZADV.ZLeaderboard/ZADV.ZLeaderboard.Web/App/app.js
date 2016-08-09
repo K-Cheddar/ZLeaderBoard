@@ -2,7 +2,7 @@
     'ui.router', 'ngCookies', 'ngRoute', 'angularBasicAuth', 'truncate', 'ui.bootstrap.datetimepicker'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
-    
+
     //
     // For any unmatched url, redirect to /state1
     $urlRouterProvider.otherwise("/userHome");
@@ -68,7 +68,7 @@
     //data: {
     //    authorizedRoles: [USER_ROLES.admin]
     //}
-})
-    .constant("myConfig", {
-        'apiUrl': 'http://localhost:60919/'
-    });
+});
+    //.constant("myConfig", {
+    //    'apiUrl': 'http://localhost:60919/'
+    //});

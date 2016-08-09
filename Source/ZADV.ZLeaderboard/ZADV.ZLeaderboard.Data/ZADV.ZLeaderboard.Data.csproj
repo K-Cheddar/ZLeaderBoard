@@ -97,6 +97,10 @@
     <Compile Include="Migrations\201608021911345_AddedCascadeDelete.Designer.cs">
       <DependentUpon>201608021911345_AddedCascadeDelete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608091951224_VotingScheme.cs" />
+    <Compile Include="Migrations\201608091951224_VotingScheme.Designer.cs">
+      <DependentUpon>201608091951224_VotingScheme.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParticipantRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608021911345_AddedCascadeDelete.resx">
       <DependentUpon>201608021911345_AddedCascadeDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608091951224_VotingScheme.resx">
+      <DependentUpon>201608091951224_VotingScheme.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
