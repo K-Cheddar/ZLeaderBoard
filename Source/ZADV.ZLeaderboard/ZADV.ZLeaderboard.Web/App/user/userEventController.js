@@ -10,8 +10,7 @@
           eventId: $stateParams.eventId,
           voteAllowed: $state.current.data.showButton,
           alreadyVoted: false,
-          participants: {},
-          tester: undefined
+          participants: {}
       };
 
 
