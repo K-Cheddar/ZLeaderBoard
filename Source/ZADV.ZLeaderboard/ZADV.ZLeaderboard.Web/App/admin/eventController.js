@@ -20,7 +20,8 @@
           incorrectStartDateFormat: false,
           incorrectEndDateFormat: false,
           showResetVotes: false,
-          showResetVotesInfo: false
+          showResetVotesInfo: false,
+          initialMultipleVotes: false
           //participantImage: undefined
       };
 
@@ -55,6 +56,7 @@
               $scope.model.event = event;
               $scope.model.participants = event.Participants;
               $scope.model.showResetVotes = true;
+              $scope.model.initialMultipleVotes = event.MultipleVotes;
           }).error(function (err) {
               alert("You don't have access to that.");
           })
@@ -156,6 +158,9 @@
 
       $scope.VotingBox = function () {
           $scope.model.event.MultipleVotes = !$scope.model.event.MultipleVotes;
+          if (!$scope.model.createEvent && $scope.model.initialMultipleVotes) {
+              $scope.model.showResetVotesInfo = true;
+          }
       }
 
       $scope.ResetVotes = function () {

@@ -1,64 +1,74 @@
-﻿<div ng-if="model.event.Name">
-    <div class="container" ng-if="model.voteAllowed && !model.email && model.event.Participants.length != 0">
-        <br />
-        <h4>Enter your email to vote</h4>
-        <form name="emailForm" ng-submit="saveEmail()">
-            <div class="email-form">
-                <p for="email">Email</p>
-                <input type="email" class="form-control" name="email" id="email" placeholder="name@email.com" required ng-model="model.emailTmp" /><br />
-                <button ng-disabled="emailForm.$invalid" type="submit" class="btn btn-primary" style="float: right">Submit</button>
-                <a href="#userHome" class="btn btn-default" style="float: left">Back</a>
-            </div>
-        </form>
-    </div>
-    <div class="container" ng-if="model.voteAllowed && model.email|| !model.voteAllowed">
-        <h2>{{model.event.Name}}</h2>
-        <p>{{model.event.Description}}</p>
-        <br />
-        <h3 ng-if="model.voteAllowed">Vote!</h3>
-        <h3 ng-if="!model.voteAllowed">Leaderboard</h3>
-        <table ng-if="model.voteAllowed" class="vote-table">
-            <tr ng-repeat="participant in model.event.Participants">
-                <td class="row-data" height="20" width="50"><img id="pImage" style="max-width:70px; max-height: 100px" />{{$index +1}}.</td>
-                <td class="row-data">{{participant.Name | characters: 35}}</td>
-                <td class="row-data">{{participant.VoteCount}}</td>
-                <td ng-if="model.voteAllowed">
-                    <a class="btn vote-button" ng-disabled="participant.VotedFor" ng-click="participant.VotedFor || vote(participant)">
-                        Vote <i style="color:black" class="fa fa-plus-square fa" aria-hidden="true"></i>
-                    </a>
-                </td>
-                <td> <i ng-if="participant.VotedFor" class="fa fa-check-circle-o eActive" aria-hidden="true"></i></td>
-            </tr>
-        </table>
-        <div ng-if="model.alreadyVoted" style="max-width: 80%" class="alert alert-danger alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            You've already voted for that participant!
+﻿<div ng-if="!model.loading">
+    <div ng-if="model.event.Name">
+        <div class="container" ng-if="model.voteAllowed && !model.email && model.event.Participants.length != 0">
+            <br />
+            <h4>Enter your email to vote</h4>
+            <form name="emailForm" ng-submit="saveEmail()">
+                <div class="email-form">
+                    <p for="email">Email</p>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="name@email.com" required ng-model="model.emailTmp" /><br />
+                    <button ng-disabled="emailForm.$invalid" type="submit" class="btn btn-primary" style="float: right">Submit</button>
+                    <a href="#userHome" class="btn btn-default" style="float: left">Back</a>
+                </div>
+            </form>
         </div>
+        <div class="container" ng-if="model.voteAllowed && model.email|| !model.voteAllowed">
+            <h2>{{model.event.Name}}</h2>
+            <p>{{model.event.Description}}</p>
+            <br />
+            <h3 ng-if="model.voteAllowed">Vote!</h3>
+            <h3 ng-if="!model.voteAllowed">Leaderboard</h3>
+            <div ng-if="model.voteAllowed">
+                <p ng-if="model.event.MultipleVotes">You may vote once for each</p>
+                <p ng-if="!model.event.MultipleVotes">You may only vote once </p>
+            </div>
+            <table ng-if="model.voteAllowed" class="vote-table">
+                <tr ng-repeat="participant in model.participants">
+                    <td class="row-data" height="20" width="50"><img id="pImage" style="max-width:70px; max-height: 100px" />{{$index +1}}.</td>
+                    <td class="row-data">{{participant.Name | characters: 35}}</td>
+                    <td class="row-data">{{participant.VoteCount}}</td>
+                    <td>
+                        <!--ng-if="!participant.VotedFor"-->
+                        <a class="btn vote-button" ng-disabled="participant.VotedFor || model.singleVoteProcess" ng-click="(participant.VotedFor || model.singleVoteProcess ) || vote(participant)">
+                            Vote <i style="color:black" class="fa fa-plus-square" aria-hidden="true"></i>
+                        </a>
+                        <!--<a ng-if="participant.VotedFor" class="btn vote-button" ng-click="vote(participant, $index)">
+                            UnVote <i style="color:black" class="fa fa-times-circle" aria-hidden="true"></i>
+                        </a>-->
+                    </td>
+                    <td> <i ng-if="participant.VotedFor" class="fa fa-check-circle-o eActive fa-lg" aria-hidden="true"></i></td>
+                </tr>
+            </table>
+            <div ng-if="model.alreadyVoted" style="max-width: 80%" class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                You've already voted for that participant!
+            </div>
 
-        <br />
-        <table class="progress-table">
-            <tr>
-                <th><p>Name</p></th>
-                <!--<th ng-if="model.voteAllowed"> </th>-->
-                <th><p>Votes</p> </th>
-            </tr>
-            <tr ng-repeat="participant in model.participants | orderBy:'-VoteCount'">
-                <td class="row-data"><div>{{participant.Name | characters: 35}}</div></td>
-                <!--<td ng-if="model.voteAllowed">
-                    <a href="" class="" ng-disabled="!model.email" ng-click="vote(participant)">
-                        <i style="color:black" class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
-                    </a>
-                </td>-->
-                <td class="vote-bar">
-                    <div class="progress-bar" style="width:{{getPercent(participant.VoteCount)}}%;
+            <br />
+            <table class="progress-table">
+                <tr>
+                    <th><p>Name</p></th>
+                    <!--<th ng-if="model.voteAllowed"> </th>-->
+                    <th><p>Votes</p> </th>
+                </tr>
+                <tr ng-repeat="participant in model.participants | orderBy:'-VoteCount'">
+                    <td class="row-data"><div>{{participant.Name | characters: 35}}</div></td>
+                    <!--<td ng-if="model.voteAllowed">
+                        <a href="" class="" ng-disabled="!model.email" ng-click="vote(participant)">
+                            <i style="color:black" class="fa fa-plus-square fa-lg" aria-hidden="true"></i>
+                        </a>
+                    </td>-->
+                    <td class="vote-bar">
+                        <div class="progress-bar" style="width:{{getPercent(participant.VoteCount)}}%;
                       background-color: {{participant.Color}}"><p>{{participant.VoteCount}}</p></div>
-                    <div ng-if="participant.VoteCount==0" class="progress-bar" style="width:8%"><p>{{participant.VoteCount}}</p></div>
-                </td>
-            </tr>
-        </table>
-        <a href="#userHome" class="btn btn-default" style="float: left">Back</a>
+                        <div ng-if="participant.VoteCount==0" class="progress-bar" style="width:8%"><p>{{participant.VoteCount}}</p></div>
+                    </td>
+                </tr>
+            </table>
+            <a href="#userHome" class="btn btn-default" style="float: left">Back</a>
+        </div>
     </div>
-</div>
-<div ng-if="!model.event.Name">
-    <p style="text-align:center; margin:0 auto">No Record Found</p>
+    <div ng-if="!model.event.Name">
+        <p style="text-align:center; margin:0 auto">No Record Found</p>
+    </div>
 </div>

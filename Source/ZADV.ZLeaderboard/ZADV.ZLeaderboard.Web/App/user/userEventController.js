@@ -10,7 +10,10 @@
           eventId: $stateParams.eventId,
           voteAllowed: $state.current.data.showButton,
           alreadyVoted: false,
-          participants: {}
+          singleVoteProcess: false,
+          participants: {},
+          loading: true,
+          voting: false
       };
 
 
@@ -20,7 +23,6 @@
           if ($state.current.name == "userEventVote" || $state.current.name == "userEventView" || $state.current.name == "eventWinner") {
               if ($scope.model.eventId) {
                   userEventService.get($scope.model.eventId).success(function (event) {
-
                       var end = $filter('date')(new Date(event.EndAt), 'EEE MMM dd, yyyy hh:mm a');
                       var start = $filter('date')(new Date(event.StartAt), 'EEE MMM dd, yyyy hh:mm a');
                       var c = $filter('date')(new Date(), 'EEE MMM dd, yyyy hh:mm a');
@@ -35,7 +37,7 @@
                       }
                       $scope.model.event = event;
                       $scope.model.participants = event.Participants;
-
+                      $scope.model.loading = false;
                   }).error(function (err) {
                       //alert("Error");
                   })
@@ -57,6 +59,22 @@
       }
 
       $scope.vote = function (participant) {
+          if (!$scope.model.event.MultipleVotes) {
+              $scope.model.singleVoteProcess = true;
+              for (var i = 0; i < $scope.model.participants.length; i++) {
+                  if ($scope.model.participants[i].VotedFor) {
+
+                      if ($scope.model.participants[i].VoteCount > 0) {
+                          $scope.model.participants[i].VoteCount--;
+                      }
+                      else {
+                          $scope.model.participants[i].VoteCount = 0;
+                      }
+
+                      $scope.model.participants[i].VotedFor = false;
+                  }
+              }
+          }
           userEventService.put(participant.Id).success(function (voted) {
               participant.VoteCount = voted.VoteCount;
               participant.VotedFor = true;
@@ -64,19 +82,11 @@
               $timeout(function () {
                   $scope.model.alreadyVoted = false;
               }, 1000)
+              $scope.model.singleVoteProcess = false;
 
           }).error(function (err) {
               //alert("Error");
           })
-      }
-
-      $scope.getTotal = function () {
-          var total = 0;
-          for (var i = 0; i < $scope.model.participants.length; i++) {
-              var count = $scope.model.participants[i];
-              total += count.VoteCount;
-          }
-          return total;
       }
 
       $scope.getMax = function () {

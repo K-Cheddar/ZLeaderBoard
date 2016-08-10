@@ -4,7 +4,7 @@
       $scope.model = {
           events: [],
           showUpcoming: false,
-          showPast: false
+          showPast: false,
       };
 
       userEventService.all().success(function (events) {

@@ -138,7 +138,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
 
                 if (!present)
                 {
-                    
+
                     _participantRepository.Remove(currentParticipant);
                 }
 
@@ -148,9 +148,12 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             if (model.ResetVotes)
             {
                 var voters = _voterRepository.GetAll();
-                foreach(var v in voters)
+                foreach (var v in voters)
                 {
-                    _voterRepository.Remove(v);
+                    if (v.Participant.Event.Id == id)
+                    {
+                        _voterRepository.Remove(v);
+                    }
                 }
             }
         }

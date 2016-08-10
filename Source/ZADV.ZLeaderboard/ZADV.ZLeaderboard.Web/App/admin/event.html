@@ -97,7 +97,7 @@
                         Reset Votes? <a class="hover" ng-click="ResetVotesInfo()"><i class="fa fa-info-circle edit" aria-hidden="true"></i></a>
                         <div class="reset-info" ng-if="model.showResetVotesInfo">
                             If someone has already voted multiple times, and you change from Multiple Votes to Single Votes, their votes will <bold>not</bold>
-                            be deleted unless you reset votes.
+                            be deleted unless they vote again or you reset votes.
                         </div>
                         <button ng-if="model.event.ResetVotes" ng-click="ResetVotes()" type="submit" class="btn btn-warning btn-smx">Yes</button>
                         <button ng-if="!model.event.ResetVotes" ng-click="ResetVotes()" type="submit" class="btn btn-info btn-smx">No</button>

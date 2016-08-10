@@ -75,7 +75,8 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
                 Name = _eventRepository.Get(id).Name,
                 Description = _eventRepository.Get(id).Description,
                 EndAt = _eventRepository.Get(id).EndAt.ToUniversalTime(),
-                StartAt = _eventRepository.Get(id).StartAt.ToUniversalTime()
+                StartAt = _eventRepository.Get(id).StartAt.ToUniversalTime(),
+                MultipleVotes = _eventRepository.Get(id).MultipleVotes
             };
 
 
@@ -134,7 +135,7 @@ namespace ZADV.ZLeaderboard.Web.Controllers.ApiControllers
             Participant participant = _participantRepository.Get(id);
             VotesViewModel vvm = new VotesViewModel();
             bool multipleVotes = _eventRepository.Get(participant.Event.Id).MultipleVotes;
-            IEnumerable<Voter> voters = _voterRepository.GetAll().Where(p => p.Participant.Event.Id == participant.Event.Id);
+            IEnumerable<Voter> voters = _voterRepository.GetAll().Where(v => v.Participant.Event.Id == participant.Event.Id);
             //foreach (var voter in voters)
             //{
             //    if (voter.Participant.Id != participant.Id)
